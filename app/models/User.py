@@ -24,13 +24,13 @@ class User(db.Model):
                                       name='fk_role_id'),
                         nullable=False)
 
-    def __init__(self, **kvargs):
-        self.full_name = kvargs.get('full_name')
-        self.email = kvargs.get('email')
-        self.password = kvargs.get('password')
-        self.is_active = kvargs.get('is_active')
-        self.avatar = kvargs.get('avatar')
-        self.role_id = kvargs.get('role_id')
+    def __init__(self, **kwargs):
+        self.full_name = kwargs.get('full_name')
+        self.email = kwargs.get('email')
+        self.password = kwargs.get('password')
+        self.is_active = kwargs.get('is_active')
+        self.avatar = kwargs.get('avatar')
+        self.role_id = kwargs.get('role_id')
 
     def __repr__(self):
         return '<User %s>' % self.full_name
