@@ -9,17 +9,17 @@ from app import db
 
 class User(db.Model):
     """Class represents user model in database."""
-    __tablename__ = 'users'
+    __tablename__ = 'Users'
     __searchable__ = ['email', 'full_name']
 
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(64), nullable=False)
     is_active = db.Column(db.Boolean, nullable=False)
     avatar = db.Column(db.String(255))
     role_id = db.Column(db.Integer,
-                        db.ForeignKey('roles.id',
+                        db.ForeignKey('Roles.id',
                                       use_alter=True,
                                       name='fk_role_id'),
                         nullable=False)
@@ -28,7 +28,7 @@ class User(db.Model):
         self.full_name = kvargs.get('full_name')
         self.email = kvargs.get('email')
         self.password = kvargs.get('password')
-        self.is_active = kvargs.get('is _active')
+        self.is_active = kvargs.get('is_active')
         self.avatar = kvargs.get('avatar')
         self.role_id = kvargs.get('role_id')
 
