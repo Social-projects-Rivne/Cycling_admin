@@ -7,5 +7,4 @@ from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 db = SQLAlchemy(app)
 
-# Make the WSGI interface available at the top level so wfastcgi can get it
-wsgi_app = app.wsgi_app
+from app import views, models
