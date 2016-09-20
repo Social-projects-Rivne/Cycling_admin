@@ -1,0 +1,11 @@
+<!-- extend base layout -->
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ greeting }}</h1>
+    {% if message %}
+        <span class="help-inline">[{{ message }}]</span><br>
+    {% endif %}
+
+    
+{% endblock %}
