@@ -16,7 +16,7 @@ def index():
     return render_template('index.html', greeting='Hello from index.html template')
 
 @app.route('/user/<int:user_id>', methods=['DELETE'])
-@login_required
+# @login_required
 def delete_user(user_id):
     is_success = users_controller.delete_by_id(user_id)
     message = 'Deleting the user with id=%s: %s' % (user_id, is_success)
