@@ -9,7 +9,7 @@ from app.models.User import User
 
 from app import db
 
-class UserController(object):
+class AdminController(object):
 
     """docstring for UserController"""
     
