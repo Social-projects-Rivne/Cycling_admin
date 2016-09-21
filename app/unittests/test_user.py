@@ -9,7 +9,7 @@ import unittest
 
 from app import app
 from app import db
-from app.models.User import User
+from app.models.user import User
 from config import DATABASE_URI
 
 
