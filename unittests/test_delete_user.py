@@ -13,7 +13,7 @@ sys.path.append(os.path.abspath('../'))
 from app import app
 from app import db
 from app.models.User import User
-from app.controllers.user_controller import UserController
+from app.controllers.user_controller import AdminController
 
 class TestDeleteUser(unittest.TestCase):
 
@@ -31,7 +31,7 @@ class TestDeleteUser(unittest.TestCase):
                          password='1', is_active=True, role_id='1')
         db.session.add(u)
         db.session.commit()
-        is_success = UserController().delete_by_id(1)
+        is_success = AdminController().delete_by_id(1)
         assert is_success
 
         test_user = User.query.filter_by(id=1).first()
