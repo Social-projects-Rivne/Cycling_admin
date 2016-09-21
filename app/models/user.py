@@ -1,14 +1,28 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-"""
-    This module implements user table model.
+"""User table model.
+
+Class User implements model of the user table in database.
+
 """
 
 from app import db
 
 
 class User(db.Model):
-    """Class represents user model in database."""
+
+    """Class represents user model in database.
+
+    Attributes:
+        id: Internal user id in database.
+        full_name: Full user name.
+        email: User email.
+        is_active: Flag that indicates whether the user has access to the cite.
+        avatar: Path to the user avatar file.
+        role_id: link to the user role table.
+
+    """
+
     __tablename__ = 'Users'
     __searchable__ = ['email', 'full_name']
 

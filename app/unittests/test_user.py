@@ -1,8 +1,10 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-    Module for testing User model.
+"""Unittest for User model.
+
+Class TestUser implements unittests for user model.
+
 """
 
 import unittest
@@ -14,9 +16,14 @@ from config import DATABASE_URI
 
 
 class TestUser(unittest.TestCase):
-    """Test case for user model testing."""
+
+    """Test case for user model.
+
+    For test running tables Users and Roles had to be created.
+
+    """
+
     def setUp(self):
-        """Init database."""
         app.config['TESTING'] = True
         app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
         db.create_all()
@@ -25,12 +32,17 @@ class TestUser(unittest.TestCase):
                          password='1', is_active=True, avatar='5', role_id='1')
 
     def tearDown(self):
-        """Free resourses."""
         db.session.delete(self.user)
         db.session.commit()
         db.session.remove()
 
     def test_create_user(self):
+        """Testing user model.
+
+        At first test tries to create user record in database.
+        Than select spesified user from database.
+
+        """
         db.session.add(self.user)
         db.session.commit()
 
