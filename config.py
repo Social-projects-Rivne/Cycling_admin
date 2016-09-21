@@ -1,8 +1,20 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-    This module contains credentials for application.
+"""Module for parsing configuration file.
+
+Configuration file should have name 'config.ini'.
+Also 'config.ini' file should be in the same catalog with config.py file.
+
+Example of configuraion file:
+[DATABASE]
+uri: mysql://root:123@172.17.0.3/CYCLINGDB
+
 """
 
-DATABASE_URI = 'mysql://root:123@172.17.0.3/CYCLINGDB'
+from configparser import SafeConfigParser
+
+config = SafeConfigParser()
+config.read('config.ini')
+
+DATABASE_URI = config.get('DATABASE', 'uri')

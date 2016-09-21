@@ -3,3 +3,4 @@
 *.whoosh
 *.db
 *.egg-info
+*.ini
