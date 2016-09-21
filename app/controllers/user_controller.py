@@ -7,7 +7,7 @@
 
 from app.models.User import User 
 
-class UserController(object):
+class AdminController(object):
 
     """docstring for UserController"""
     
