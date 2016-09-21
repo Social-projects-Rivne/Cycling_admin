@@ -7,12 +7,22 @@
 from app import db
 
 
+class Role(db.Model):
+
+    """Class represents user model in database."""
+
+    __tablename__ = 'roles'
+
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+
 class User(db.Model):
     """Class represents user model in database."""
     __tablename__ = 'users'
     __searchable__ = ['email', 'full_name']
 
-    user_id = db.Column(db.Integer, primary_key=True)
+    id = db.Column(db.Integer, primary_key=True)
     full_name = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(64), nullable=False)
