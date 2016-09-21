@@ -1,0 +1,47 @@
+<div id='user-edit-modal'>
+  <form action='' method='POST' name='user'>
+    {{ edit_user_form.hidden_tag() }}
+    <div>
+      {{ edit_user_form.fullName(class_="dad") }}
+    </div>
+    <div>
+      <img id="avatar_img" style="display:none"/>
+    </div>
+    <input class='btn btn-primary' type='submit' value='Save'/>
+    <button class='btn btn-default'>Reset</button>
+    <button class='btn btn-link'>Cancel</button>
+  </form>
+</div>
+<script>
+
+  userEditModal = (function(){
+    return {
+      id: document.getElementById('id_'),
+      fullname: document.getElementById('fullName'),
+      email: document.getElementById('email'),
+      avatar: document.getElementById('avatar'),
+      avatar_img: document.getElementById('avatar_img'),
+      isActive: document.getElementById('isActive'),
+      role_id: document.getElementById('role_id')
+    };
+  })();
+
+  // this function should prepare all fields
+  // and then
+  // show modal
+  function openUserEditWindow(userObj){
+    userEditModal.id.value = userObj.id
+    userEditModal.fullname.value = userObj.fullname
+    userEditModal.email.value = userObj.email
+    // avatar refresh
+    userEditModal.avatar.value = userObj.avatar
+    if (userEditModal.avatar.value.length != 0){
+      userEditModal.avatar_img.src = userEditModal.avatar.value
+      userEditModal.avatar_img.style.display = "block"
+    }
+    else{
+      userEditModal.avatar_img.style.display = "none"
+    }
+  }
+
+</script>
