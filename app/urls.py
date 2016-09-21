@@ -8,7 +8,7 @@ from flask import render_template, redirect, url_for
 from flask_login import login_required
 
 from app import app
-from controllers import users_controller
+from controllers.user_controller import UserController
 
 @app.route('/')
 def index():
@@ -18,6 +18,6 @@ def index():
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 # @login_required
 def delete_user(user_id):
-    is_success = users_controller.delete_by_id(user_id)
+    is_success = UserController.delete_by_id(user_id)
     message = 'Deleting the user with id=%s: %s' % (user_id, is_success)
     return redirect(url_for('index'), message=message)
