@@ -34,8 +34,6 @@ class AdminController(object):
             return "Error input"
 
 if __name__ == '__main__':
-    #Search = AdminController()
-    #print Search.search_user("Hdgsdkro@gmail.com")
-
+    pass
     
     
