@@ -5,7 +5,7 @@
     User controller class for CRUD with User model.
 """
 
-from app.models.User import User 
+from app.models.user import User 
 
 from app import db
 
