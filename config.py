@@ -37,4 +37,3 @@ DATABASE_URI = '%s://%s:%s@%s:%s/%s' % (ENGINE,
                                         PORT,
                                         DB_NAME,)
 
-print DATABASE_URI
