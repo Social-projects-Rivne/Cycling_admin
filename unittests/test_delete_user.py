@@ -12,7 +12,7 @@ sys.path.append(os.path.abspath('../'))
 
 from app import app
 from app import db
-from app.models.User import User
+from app.models.user import User
 from app.controllers.user_controller import AdminController
 
 class TestDeleteUser(unittest.TestCase):

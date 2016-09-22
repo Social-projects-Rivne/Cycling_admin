@@ -7,7 +7,7 @@ Class User implements model of the user table in database.
 """
 
 from app import db
-
+from app.models.role import Role
 
 class User(db.Model):
 
