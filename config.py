@@ -18,7 +18,8 @@ NAME: CYCLINGDB
 
 """
 
-from configparser import SafeConfigParser
+#from configparser import SafeConfigParser
+from ConfigParser import SafeConfigParser
 
 config = SafeConfigParser()
 config.read('./config.ini')
