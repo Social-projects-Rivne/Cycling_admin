@@ -6,8 +6,9 @@ Class User implements model of the user table in database.
 
 """
 
-from app import db
+from app import app, db
 
+from config import DATABASE_URI
 
 class User(db.Model):
 
@@ -17,7 +18,8 @@ class User(db.Model):
         id: Internal user id in database.
         full_name: Full user name.
         email: User email.
-        is_active: Flag that indicates whether the user has access to the cite.
+        is_active: Flag that indicates whether the user has access to the 
+        site.
         avatar: Path to the user avatar file.
         role_id: link to the user role table.
 
@@ -48,3 +50,21 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %s>' % self.full_name
+
+class UserHandler(object):
+
+    """Purpose of this class is to CRUD data about Users from DB"""
+
+    def __init__(self):
+        """Parse mysql credentials from config file and run db"""
+        app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+        db.create_all()
+
+    def select_all_users(self):
+        """
+        Send select * query to the db except password column, return list
+        """
+        self.users_db_obj = User.query.add_columns('id', 'full_name', 'email',
+         'is_active', 'avatar', 'role_id')
+        self.result = [row[1:] for row in self.users_db_obj]
+        return self.result

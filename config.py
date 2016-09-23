@@ -12,7 +12,8 @@ uri: mysql://root:123@172.17.0.3/CYCLINGDB
 
 """
 
-from configparser import SafeConfigParser
+#from configparser import SafeConfigParser
+from ConfigParser import SafeConfigParser
 
 config = SafeConfigParser()
 config.read('config.ini')
