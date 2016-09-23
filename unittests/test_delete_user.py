@@ -22,16 +22,14 @@ class TestDeleteUser(unittest.TestCase):
     def setUp(self):
         """Init database."""
         app.config['TESTING'] = True
-        app.config['MYSQL_DATABASE_HOST'] = 'localhost'
-        app.config['MYSQL_DATABASE_PORT'] = 3306
         db.create_all()
 
     def test_delete_user_by_id(self):
-        u = User(full_name='test user', email='test@gmail.com',
+        u = User(full_name='test user', email='test5@gmail.com',
                          password='1', is_active=True, role_id='1')
         db.session.add(u)
         db.session.commit()
-        is_success = AdminController().delete_by_id(1)
+        is_success = AdminController().delete_by_id(u.id)
         assert is_success
 
         test_user = User.query.filter_by(id=1).first()
