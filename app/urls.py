@@ -5,18 +5,21 @@
     This module is for URL routing.
 """
 
-from flask import Response, json, jsonify, request
+from flask import Response, json, jsonify, request, render_template
 from app import app
 from app.controllers.user_controller import AdminController
 
+_admin_controller = AdminController()
 
 @app.route('/')
 def hello():
     """Root entry point of application."""
     return "Hello World!"
 
-@app.route('/users/search', methods=["POST", "GET"])
+@app.route('/users/search', methods=['GET'])
+def render_base():
+	return render_template("base.html")
+
+@app.route('/users/search', methods=["POST"])
 def search():
-	tmp = request.get_json()
-	tmp['chototam'] = "value"
-	return jsonify(tmp)
+	return _admin_controller.search_user()
