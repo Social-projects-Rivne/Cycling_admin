@@ -22,7 +22,7 @@ class User(db.Model):
         is_active: Flag that indicates whether the user has access to the
         site.
         avatar: Path to the user avatar file.
-        role_id: link to the user role table.
+        role_id: integer number - index of a role ['user', 'admin']
 
     """
 
@@ -36,10 +36,12 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, nullable=False)
     avatar = db.Column(db.String(255))
     role_id = db.Column(db.Integer,
-                        db.ForeignKey('Roles.id',
-                                      use_alter=True,
-                                      name='fk_role_id'),
+                        default=0,
                         nullable=False)
+    roles = ['user', 'admin']
+
+    def role(self):
+        return roles[self.role_id]
 
     def __repr__(self):
         return '<User %s>' % self.full_name
