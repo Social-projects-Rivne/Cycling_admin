@@ -41,25 +41,12 @@ class User(db.Model):
                                       name='fk_role_id'),
                         nullable=False)
 
-    # def __init__(self, **kwargs):
-    #     self.full_name = kwargs.get('full_name')
-    #     self.email = kwargs.get('email')
-    #     self.password = kwargs.get('password')
-    #     self.is_active = kwargs.get('is_active')
-    #     self.avatar = kwargs.get('avatar')
-    #     self.role_id = kwargs.get('role_id')
-
     def __repr__(self):
         return '<User %s>' % self.full_name
 
 class UserHandler(object):
 
     """Purpose of this class is to CRUD data about Users from DB"""
-
-    def __init__(self):
-        """Parse mysql credentials from config file and run db"""
-        # app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-        # db.create_all()
 
     def select_all_users(self):
         """
