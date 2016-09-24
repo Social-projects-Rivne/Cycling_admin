@@ -1,0 +1,74 @@
+{% extends "index.html" %}
+
+{% block content %}
+<h1> User Edit </h1>
+<div>
+  {% if user is not None %}
+    {% if message is not None %}
+    <div class="bg-success col-xs-12">
+      {{ message }}
+    </div>
+    {% endif %}
+    {% if error is not None %}
+    <div class="bg-warning col-xs-12">
+      {{ error }}
+    </div>
+    {% endif %}
+    <form method='PUT'>
+      <div>
+        Full Name:
+        <input class="form-control" type="text" name="full_name" value={{user.full_name}} />
+      </div>
+      <div>
+        Email:
+        <input class="form-control" type="text" name="email" value={{user.email}} />
+      </div>
+      <div>
+        Banned/Deleted:
+        <input class="form-control" type="checkbox" name="is_active" value={{user.is_active}} />
+      </div>
+      <div>
+        Role:
+        <select class="form-control" name="role_id">
+          <option value="1" {% if user.role_id == 1 %} selected="selected"{% endif %}>User</option>
+          <option value="2" {% if user.role_id == 2 %} selected="selected"{% endif %}>Admin</option>
+        </select>
+      </div>
+      <div style="margin: auto">
+        <input class='btn btn-primary' type='submit' value='Save'/>
+        <button class='btn btn-link' onclick='reset_data()'>Cancel</button>
+      </div>
+    </form>
+  {% else %}
+    <div class="bg-warning col-xs-12">
+      Користувача з даним індентифікатором не знайдено.
+    </div>
+  {% endif %}
+</div>
+<script>
+
+  // this object holds starting field values
+  var user = [
+    fullName: {{ user.full_name }},
+    email: {{ user.email }},
+    is_active: {{ user.is_active }},
+    role: {{ user.role }}
+  ];
+
+  // this object holds field elements
+  var edit_form = [
+    fullName_field: document.getElementsByName('full_name')[0],
+    email_field: document.getElementsByName('email')[0],
+    is_active_field: document.getElementsByName('is_active')[0],
+    role_field: document.getElementsByName('role')[0]
+  ];
+
+  reset_data();
+  function reset_data(){
+    edit_form.full_name_field.value = user.full_name;
+    edit_form.email_field.value = user.email;
+    edit_form.role_field.selectedIndex = user.role;
+    edit_form.is_active_field.checked = user.is_active;
+  }
+</script>
+{% endblock content %}

@@ -9,6 +9,7 @@ from app.models.user import User, UserHandler
 from app.views.view import View
 from app import db
 
+
 class AdminController(object):
 
     """docstring for AdminController"""
@@ -32,7 +33,7 @@ class AdminController(object):
 
     def get_all_users(self):
         """
-        Get list of all users from db via User model and return view 
+        Get list of all users from db via User model and return view
         rendering function
         """
         _users_list = self.users_model.select_all_users()
