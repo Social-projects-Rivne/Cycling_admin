@@ -41,7 +41,7 @@ class User(db.Model):
     roles = ['user', 'admin']
 
     def role(self):
-        return roles[self.role_id]
+        return self.roles[self.role_id]
 
     def __repr__(self):
         return '<User %s>' % self.full_name
