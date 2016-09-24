@@ -11,12 +11,7 @@ from app.controllers.user_controller import AdminController
 
 _admin_controller = AdminController()
 
-@app.route('/')
-def hello():
-    """Root entry point of application."""
-    return "Hello World!"
-
-@app.route('/users/search', methods=['GET'])
+@app.route('/', methods=['GET'])
 def render_base():
 	return render_template("form.html")
 
