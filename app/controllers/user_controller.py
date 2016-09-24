@@ -26,17 +26,16 @@ class AdminController(object):
         exists3 = db.session.query(db.exists().where(User.role_id == value)).scalar()
         if exists:   
             result = db.session.query(User).filter_by(full_name = value).all()
-            return _admin_view.render_search_page(result)
+            return self._admin_view.render_search_page(result)
         elif exists2:
             result = db.session.query(User).filter_by(email = value).all()
-            return admin_view.render_search_page(result)
+            return self._admin_view.render_search_page(result)
         elif exists3:
             result = db.session.query(User).filter_by(role_id = value).all()
-            return admin_view.render_search_page(result)
+            return self._admin_view.render_search_page(result)
         else:
             return "Error input"
 
 if __name__ == '__main__':
     pass
-    
     

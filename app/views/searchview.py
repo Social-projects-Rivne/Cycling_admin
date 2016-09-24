@@ -11,6 +11,6 @@ class AdminView(object):
 
 	"""View class for rendering templates."""
 
-	def render_search_page(self):
+	def render_search_page(self, value):
 		"""Render web-page from template and given users_list argument"""
-		return render_template('search.html', value)
+		return render_template('result.html', value=value)

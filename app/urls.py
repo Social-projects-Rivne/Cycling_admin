@@ -18,8 +18,9 @@ def hello():
 
 @app.route('/users/search', methods=['GET'])
 def render_base():
-	return render_template("base.html")
+	return render_template("form.html")
 
 @app.route('/users/search', methods=["POST"])
 def search():
-	return _admin_controller.search_user()
+	Post_data = request.form['search-input']
+	return _admin_controller.search_user(Post_data)
