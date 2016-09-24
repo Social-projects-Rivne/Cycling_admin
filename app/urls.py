@@ -15,7 +15,7 @@ _admin_controller = AdminController()
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 # @login_required
 def delete_user(user_id):
-    is_success = AdminController.delete_by_id(user_id)
+    is_success = AdminController().delete_by_id(user_id)
     message = 'Deleting the user with id=%s: %s' % (user_id, is_success)
     return redirect(url_for('index'), message=message)
 
