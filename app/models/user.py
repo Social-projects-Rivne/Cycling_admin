@@ -57,8 +57,8 @@ class UserHandler(object):
 
     def __init__(self):
         """Parse mysql credentials from config file and run db"""
-        app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
-        db.create_all()
+        # app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+        # db.create_all()
 
     def select_all_users(self):
         """
