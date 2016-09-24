@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""Module for parsing configuration file.
+"""
+Module for parsing configuration file.
 
 Configuration file should have name 'config.ini'.
 Also 'config.ini' file should be in the same catalog with config.py file.

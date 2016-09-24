@@ -4,3 +4,5 @@
 *.db
 *.egg-info
 *.ini
+*.db
+*/.ropeproject/
