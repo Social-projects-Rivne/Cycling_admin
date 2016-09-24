@@ -4,21 +4,14 @@
 """
     This module is for URL routing.
 """
-from flask import render_template, redirect, url_for, request
+
+from flask import Response, request, render_template, redirect, url_for
 
 from app import app
 from app.controllers.user_controller import AdminController
 from app.controllers.edit_user_controller import EditUserController
 
-controller = AdminController()
-
-
-@app.route('/')
-def index():
-    """Root entry point of application."""
-    return render_template('index.html',
-                           greeting='Hello from index.html template')
-
+_admin_controller = AdminController()
 
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 # @login_required
@@ -31,8 +24,7 @@ def delete_user(user_id):
 @app.route('/users/all')
 def list_all_users():
     """Return web-page with the list of all users in the database"""
-    return controller.get_all_users()
-
+    return _admin_controller.get_all_users()
 
 @app.route('/users/<id>/edit', methods=['GET', 'PUT'])
 def edit_user_page(id):
@@ -41,3 +33,12 @@ def edit_user_page(id):
     """
     controller = EditUserController(id, put_dict=request.form)
     return controller.render_template()
+
+@app.route('/', methods=['GET'])
+def render_base():
+	return render_template("form.html")
+
+@app.route('/users/search', methods=["POST"])
+def search():
+	Post_data = request.form['search-input']
+	return _admin_controller.search_user(Post_data)
