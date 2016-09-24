@@ -7,9 +7,7 @@ Class User implements model of the user table in database.
 """
 
 from app import db
-from app import app
-from app.models.role import Role
-from config import DATABASE_URI
+
 
 class User(db.Model):
 
@@ -46,6 +44,7 @@ class User(db.Model):
     def __repr__(self):
         return '<User %s>' % self.full_name
 
+
 class UserHandler(object):
 
     """Purpose of this class is to CRUD data about Users from DB"""
@@ -54,7 +53,11 @@ class UserHandler(object):
         """
         Send select * query to the db except password column, return list
         """
-        self.users_db_obj = User.query.add_columns('id', 'full_name', 'email',
-         'is_active', 'avatar', 'role_id')
+        self.users_db_obj = User.query.add_columns('id',
+                                                   'full_name',
+                                                   'email',
+                                                   'is_active',
+                                                   'avatar',
+                                                   'role_id')
         self.result = [row[1:] for row in self.users_db_obj]
         return self.result
