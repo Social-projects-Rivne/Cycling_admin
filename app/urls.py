@@ -19,5 +19,5 @@ def edit_user_page(id):
     """
     This method return edit user page
     """
-    pass
-
+    controller = EditUserController(id, put_dict=request.form)
+    return controller.render_template()

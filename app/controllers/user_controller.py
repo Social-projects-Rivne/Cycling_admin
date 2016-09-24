@@ -5,10 +5,9 @@
     User controller class for CRUD with User model.
 """
 
-from app.models.User import User 
+from app.models.User import User
+
 
 class AdminController(object):
-
     """docstring for UserController"""
-    
     pass
