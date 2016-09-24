@@ -7,6 +7,7 @@ Class User implements model of the user table in database.
 """
 
 from app import db
+from app import app
 from app.models.role import Role
 from config import DATABASE_URI
 
@@ -18,7 +19,7 @@ class User(db.Model):
         id: Internal user id in database.
         full_name: Full user name.
         email: User email.
-        is_active: Flag that indicates whether the user has access to the 
+        is_active: Flag that indicates whether the user has access to the
         site.
         avatar: Path to the user avatar file.
         role_id: link to the user role table.
