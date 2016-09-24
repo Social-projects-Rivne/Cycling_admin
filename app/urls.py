@@ -12,6 +12,7 @@ from app.controllers.user_controller import AdminController
 
 _admin_controller = AdminController()
 
+
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 # @login_required
 def delete_user(user_id):
@@ -26,21 +27,20 @@ def list_all_users():
     return _admin_controller.get_all_users()
 
 
-@app.route('/users/<id>/edit', methods=['GET', 'PUT'])
+@app.route('/users/<id>/edit', methods=['GET', 'POST'])
 def edit_user_page(id):
     """
     This method return edit user page
     """
-    return controller.get_edit_user_page(id, request.form)
+    return _admin_controller.get_edit_user_page(id, request.form)
 
 
 @app.route('/', methods=['GET'])
 def render_base():
-	return render_template("form.html")
+    return render_template("form.html")
 
 
 @app.route('/users/search', methods=["POST"])
 def search():
-	Post_data = request.form['search-input']
-	return _admin_controller.search_user(Post_data)
-
+    Post_data = request.form['search-input']
+    return _admin_controller.search_user(Post_data)
