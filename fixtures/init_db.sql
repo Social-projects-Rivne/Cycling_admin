@@ -14,13 +14,6 @@ CREATE DATABASE IF NOT EXISTS CYCLINGDB CHARACTER SET utf8;
 -- switch to ur db
 USE CYCLINGDB;
 
--- table Roles
-CREATE TABLE `Roles` (
-  `id` INTEGER NOT NULL AUTO_INCREMENT,
-  `role_name` VARCHAR(20) NOT NULL,
-  PRIMARY KEY (`id`)
-);
-
 -- table Users
 CREATE TABLE `Users` (
   `id` INTEGER NOT NULL AUTO_INCREMENT,
@@ -29,7 +22,7 @@ CREATE TABLE `Users` (
   `password` VARCHAR(128) NOT NULL,
   `is_active` TINYINT NOT NULL,
   `avatar` VARCHAR(255),
-  `role_id` INTEGER NOT NULL,
+  `role_id` TINYINT NOT NULL,
   PRIMARY KEY (`id`)
 );
 
@@ -103,8 +96,6 @@ CREATE TABLE `StolenBicycles` (
 );
 
 -- create foreign keys
-ALTER TABLE `Users` ADD FOREIGN KEY (role_id) REFERENCES `Roles` (`id`);
-
 ALTER TABLE `Parking` ADD FOREIGN KEY (owner_id) REFERENCES `Users` (`id`);
 
 ALTER TABLE `Attachments` ADD FOREIGN KEY (parking_id) REFERENCES `Parking` (`id`);
@@ -120,7 +111,3 @@ ALTER TABLE `Images` ADD FOREIGN KEY (bike_id) REFERENCES `Bicycles` (`id`);
 ALTER TABLE `StolenBicycles` ADD FOREIGN KEY (bike_id) REFERENCES `Bicycles` (`id`);
 
 SHOW TABLES;
-
--- Insert Data
-INSERT INTO `Roles` (`id`,`role_name`) VALUES ('1','user');
-INSERT INTO `Roles` (`id`,`role_name`) VALUES ('2','admin');
