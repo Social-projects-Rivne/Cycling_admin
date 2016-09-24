@@ -8,7 +8,6 @@ from flask import render_template, redirect, url_for, request
 
 from app import app
 from app.controllers.user_controller import AdminController
-from app.controllers.edit_user_controller import EditUserController
 
 controller = AdminController()
 
@@ -39,5 +38,4 @@ def edit_user_page(id):
     """
     This method return edit user page
     """
-    controller = EditUserController(id, put_dict=request.form)
-    return controller.render_template()
+    return controller.get_edit_user_page(id, request.form)
