@@ -1,35 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-	 {% if title %}
+	<!--{% if title %}
     <title>{{ title }} - users</title>
     {% else %}
     <title>Users of Rivne-cycling</title>
-    {% endif %}
+    {% endif %}-->
 	<meta charset="UTF-8">
 	<link rel="stylesheet" href="../static/style.css" />
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 	<!-- Latest compiled and minified CSS -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<script type="text/javascript" src="../static/search.js"></script>
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-	<script type="text/javascript" src="../static/search.js"></script>
 </head>
 <body>
 
-<div id="content">
-{% block content %}{% endblock %}
+<nav class="navbar" role="navigation">
 
-{% block form %}{% endblock %}
+  <div class="navbar-header">
+	<a class="logo-a"><span class="icon material-icons">menu</span></a>
+    <a class="navbar-brand logo-line" href="#">Cycling</a>
+  </div>
 
-{% block result %}{% endblock %}
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+	<form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
+	<div class="input-group">
+    	<div class="input-group-btn">
+       		<button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+    	</div>
+    	<input type="search" class="form-control" placeholder="Search" name="search-input">
+	</div>
+	</form>
+	<!--{% block form %}{% endblock %}-->
+  </div>
+</nav>
+
+<div class="navmenu navmenu-default" role="navigation">
+  <a class="navmenu-brand menu-title" href="#">Administrator</a>
+  <ul class="nav navmenu-nav sidenav-ul">
+    <li><a href="#">Users</a></li>
+    <li><a href="#">Parking Spaces</a></li>
+    <li><a href="#">Services</a></li>
+    <li><a href="#">Stolen Bicycles</a></li>
+    <li><a href="#">Races Table</a></li>
+  </ul>
 </div>
 
-<div id="footer">
-   	{% block footer %}
-    {% endblock %}
+<div id="content">
+<h1 class="content-header">Users</h1>
+{% block content %}{% endblock %}
+
+{% block result %}{% endblock %}
 </div>
 
 </body>
