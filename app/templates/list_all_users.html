@@ -25,16 +25,16 @@
 			<td>{{user[1]}}</td>
 			<td>{{user[2]}}</td>
 			<td>
-				{% if user[3] %}
-					<input type="checkbox">
-				{% else %}
-					<input type="checkbox" checked>
-				{% endif %}
+				<input type="checkbox" name="activation"
+					data-record-id="{{user[0]}}" data-record-title="{{user[1]}}" 
+       				data-toggle="modal" data-target="#confirm-delete"
+				 {% if not user[3] %} checked {% endif %}
+				>
 			</td>
 			<td>{{user[4]}}</td>
 			<td>
 				<select>
-				{% if user[5] == 2 %}
+				{% if user[5] == 1 %}
 					<option selected>admin</option>
 					<option>user</option>
 				{% else %}
@@ -50,4 +50,7 @@
 	</tbody>
 	</table>
 </div>
+
+{% include 'modal_confirm_remove.html' %}
+
 {% endblock %}
