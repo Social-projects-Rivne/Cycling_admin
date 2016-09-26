@@ -21,7 +21,7 @@
 </head>
 <body>
 
-<nav class="navbar" role="navigation">
+<div class="navbar" role="navigation">
 
   <div class="navbar-header">
 	<a class="logo-a"><span class="icon material-icons">menu</span></a>
@@ -29,17 +29,9 @@
   </div>
 
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-	<form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
-	<div class="input-group">
-    	<div class="input-group-btn">
-       		<button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-    	</div>
-    	<input type="search" class="form-control" placeholder="Search" name="search-input">
-	</div>
-	</form>
-	<!--{% block form %}{% endblock %}-->
+	{% block form %}{% endblock %}
   </div>
-</nav>
+</div>
 
 <div class="navmenu navmenu-default" role="navigation">
   <a class="navmenu-brand menu-title" href="#">Administrator</a>
