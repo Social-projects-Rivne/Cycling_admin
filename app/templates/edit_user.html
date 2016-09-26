@@ -1,57 +1,60 @@
 <!-- extend base layout -->
 {% extends "base.html" %}
 
+{% block title %}
+User Edit
+{% endblock %}
 {% block content %}
 
-<div class='container'>
-  <h1> User Edit </h1>
-  {% if user is not none %}
-    {% if message is not none %}
-    <div class="alert alert-success">
-      {{ message }}
-    </div>
-    {% endif %}
-    {% if error is not none %}
-    <div class="alert alert-warning">
-      {{ error }}
-    </div>
-    {% endif %}
-    <form method='POST' id='edit-form'>
-      <div>
-        <label class="control-label">Full Name:</label>
-        <input class="form-control" type="text" name="full_name" value={{user.full_name}} />
-      </div>
-      <div>
-        <label class="control-label">Email:</label>
-        <input class="form-control" type="text" name="email" value={{user.email}} />
-      </div>
-      <div class="checkbox">
-        <label class="control-label" style="font-weight:bold;">
-          <input type="checkbox" name="is_active" value="{{user.is_active}}" />
-          Banned/Deleted
-        </label>
 
-      </div>
-      <div>
-        <label class="control-label">Role:</label>
-        <select style="display:inline-block;" class="form-control" name="role_id" form='edit-form'>
-          <option value="0" {% if user.role_id|int() == 0 %} selected{% endif %}>User</option>
-          <option value="1" {% if user.role_id|int() == 1 %} selected{% endif %}>Admin</option>
-        </select>
-      </div>
-      <div style="text-align:center;margin-top:10px;">
-        <div style="display:inline-block;margin: 0 auto;">
-          <input class='btn btn-primary' type='submit' value='Save'/>
-          <button type='button' class='btn btn-link' onclick='reset_data()'>Cancel</button>
-        </div>
-      </div>
-    </form>
-  {% else %}
-    <div class="alert alert-warning">
-      User with specified id not found.
-    </div>
+{% if user is not none %}
+  {% if message is not none %}
+  <div class="alert alert-success">
+    {{ message }}
+  </div>
   {% endif %}
-</div>
+  {% if error is not none %}
+  <div class="alert alert-warning">
+    {{ error }}
+  </div>
+  {% endif %}
+  <form method='POST' id='edit-form'>
+    <div>
+      <label class="control-label">Full Name:</label>
+      <input class="form-control" type="text" name="full_name" value={{user.full_name}} />
+    </div>
+    <div>
+      <label class="control-label">Email:</label>
+      <input class="form-control" type="text" name="email" value={{user.email}} />
+    </div>
+    <div class="checkbox">
+
+      <label class="control-label" style="font-weight:bold;">
+        <input type="checkbox" name="is_active"/>
+        Banned/Deleted
+      </label>
+
+    </div>
+    <div>
+      <label class="control-label">Role:</label>
+      <select style="form-control" class="form-control" name="role_id" form='edit-form' {% if role_disabled %}disabled{% endif %}>
+        <option value="0" {% if user.role_id|int() == 0 %} selected{% endif %}>User</option>
+        <option value="1" {% if user.role_id|int() == 1 %} selected{% endif %}>Admin</option>
+      </select>
+    </div>
+    <div style="text-align:center;margin-top:10px;">
+      <div style="display:inline-block;margin: 0 auto;">
+        <input class='btn btn-primary' type='submit' value='Save'/>
+        <button type='button' class='btn btn-link' onclick='reset_data()'>Cancel</button>
+      </div>
+    </div>
+  </form>
+{% else %}
+  <div class="alert alert-warning">
+    User with specified id not found.
+  </div>
+{% endif %}
+
 <script>
 
   // this object holds field elements
@@ -67,7 +70,7 @@
     edit_form.fullname_field.value = "{{ user.full_name }}";
     edit_form.email_field.value = "{{ user.email }}";
     edit_form.role_field.selectedIndex = {{ user.role_id }};
-    edit_form.is_active_field.checked = {% if user.is_active == True %}1{% else %}0{% endif %};
+    edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
   }
 </script>
 {% endblock content %}
