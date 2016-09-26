@@ -18,7 +18,7 @@ _admin_controller = AdminController()
 def delete_user(user_id):
     is_success = AdminController().delete_by_id(user_id)
     message = 'Deleting the user with id=%s: %s' % (user_id, is_success)
-    return redirect(url_for('index'), message=message)
+    return redirect(url_for('render_base', message=message))
 
 
 @app.route('/users/all')
@@ -37,7 +37,7 @@ def edit_user_page(id):
 
 @app.route('/', methods=['GET'])
 def render_base():
-    return render_template("form.html")
+    return render_template("form.html", message=None)
 
 
 @app.route('/users/search', methods=["POST"])

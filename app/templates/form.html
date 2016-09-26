@@ -7,4 +7,8 @@
 	</div>
 	<button type="submit" class="btn btn-default" id="submit-line">Search</button>
 </form>
+
+{% if message %}
+        <span class="help-inline">[{{ message }}]</span><br>
+    {% endif %}
 {% endblock %}
