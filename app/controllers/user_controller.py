@@ -100,10 +100,10 @@ class AdminController(object):
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")
 
-    def change_user_group(self, user_id, user_role):
+    def change_user_group(self, user_id, params):
         try:
             u_id = str(user_id)
-            u_role = int(user_role)
+            u_role = int(params['user_role'])
         except:
             return self._response_for_ajax(success=False, status_code=500)
 
