@@ -4,20 +4,23 @@
 {% block title %}Cycling users management{% endblock %}
 
 {% block content %}
-<div class="users_table">
-	<table border="1px">
-	<tbody>
+<div>
+<!-- <table class="table table-hover"> -->
+<table class="table">
 
+	<thead>
 		<tr>
 			<th>#</th>
-			<th>Full name</th>
+			<th>Full Name</th>
 			<th>Email</th>
 			<th>Delete</th>
 			<th>Avatar</th>
 			<th>Role</th>
-			<th>Edit</th>
+			<th></th>
 		</tr>
+	</thead>
 
+	<tbody>
 		{% for user in users_list %}
 		<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
 		<tr>
@@ -46,9 +49,8 @@
 			<td><a href='#' style='color: black; text-decoration: none'>&#128393;</a></td>
 		</tr>
 		{% endfor %}
-
 	</tbody>
-	</table>
+</table>
 </div>
 
 {% include 'modal_confirm_remove.html' %}

@@ -55,30 +55,40 @@
 .navbar-brand
 {
 	line-height: 18px !important;
-	margin-right: 150px !important;
+	margin-right: 80px !important;
 }
 
 .navmenu
 {
-	width: 272px;
-	float: left;
+	width: 200px;
+	left: 0px;
+	position: fixed;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 .menu-title
 {
 	display: block;
-    width: 272px;
+    width: 195px;
     height: 30px;
     margin-left: 5px;
-	color: #b5abab !important;    
+    margin-bottom: 10px;
+	color: #4187D2 !important;
+	font-size: 20px;
+	text-decoration: none !important;
+}
+
+.menu-title:hover
+{
+	text-decoration: none;
 }
 
 .active
 {
 	background-color: #EEEEEE !important;
-	color: #106CC8;
+	color: #106CC8 !important;
 }
-
 
 .sidenav-ul li a
 {
@@ -100,8 +110,9 @@
 
 #content
 {
-	display: inline-block;
-	margin-left: 50px;
+	margin-left: 250px;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 .content-header
@@ -109,4 +120,36 @@
 	color: #4187D2 !important;
 	margin-top: 0px !important;
     margin-bottom: 35px !important;
+}
+
+.closed
+{
+	left: -200px;
+}
+
+#content.closed
+{
+	margin-left: 22px;
+}
+
+.table 
+{
+	font-family: sans;
+}
+
+.table_checkboxes 
+{
+	transform: scale(0.75);
+}
+
+.table_select
+{
+	border:none; 
+	background-color:inherit;
+}
+
+.edit_pencil_href
+{
+	color: black; 
+	text-decoration: none;
 }
