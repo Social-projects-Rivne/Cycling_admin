@@ -1,14 +1,15 @@
 {% extends "base.html" %}
 {% block form %}
-<form method="POST" action="/users/search" id="search-form">
- 	<div class="form-group">
-    	<label for="email">Search</label>
-    	<input type="search" class="form-control" id="search-line" name="search-input">
+<form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
+	<div class="input-group">
+   		<div class="input-group-btn">
+       		<button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+    	</div>
+    	<input type="search" class="form-control" placeholder="Search" name="search-input">
 	</div>
-	<button type="submit" class="btn btn-default" id="submit-line">Search</button>
 </form>
 
-{% if message %}
+	{% if message %}
         <span class="help-inline">[{{ message }}]</span><br>
     {% endif %}
 {% endblock %}
