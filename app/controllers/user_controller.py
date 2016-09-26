@@ -66,7 +66,7 @@ class AdminController(object):
             if params:
                 user.full_name = params['full_name']
                 user.email = params['email']
-                user.is_active = 1 if 'is_active' in params else 0
+                user.is_active = 0 if 'is_active' in params else 1
                 user.role_id = params['role_id']
                 db.session.commit()
                 message = "Changes done."
