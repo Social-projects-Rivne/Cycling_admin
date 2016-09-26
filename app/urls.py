@@ -35,9 +35,9 @@ def edit_user_page(id):
     return _admin_controller.get_edit_user_page(id, request.form)
 
 
-@app.route('/users/<id>/edit', methods=['POST'])
+@app.route('/users/<int:id>/role_edit', methods=['POST'])
 def edit_user_role(id):
-    return _admin_controller.change_user_group(id, request.json)
+    return _admin_controller.change_user_group(id, request.get_json())
 
 
 @app.route('/', methods=['GET'])
