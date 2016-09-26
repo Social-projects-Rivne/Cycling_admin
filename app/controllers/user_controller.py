@@ -88,13 +88,16 @@ class AdminController(object):
                                    where(User.role_id == value)).scalar()
 
         if exists:
-            result = db.session.query(User).filter_by(full_name=value).all()
+            users_db_obj = db.session.query(User).filter_by(full_name=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+            result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists2:
-            result = db.session.query(User).filter_by(email=value).all()
+            users_db_obj = db.session.query(User).filter_by(email=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+            result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists3:
-            result = db.session.query(User).filter_by(role_id=value).all()
+            users_db_obj = db.session.query(User).filter_by(role_id=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+            result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")

@@ -55,12 +55,12 @@
 .navbar-brand
 {
 	line-height: 18px !important;
-	margin-right: 150px !important;
+	margin-right: 80px !important;
 }
 
 .navmenu
 {
-	width: 272px;
+	width: 200px;
 	left: 0px;
 	position: fixed;
 	-webkit-transition: 0.3s;
@@ -70,7 +70,7 @@
 .menu-title
 {
 	display: block;
-    width: 272px;
+    width: 195px;
     height: 30px;
     margin-left: 5px;
     margin-bottom: 10px;
@@ -110,7 +110,7 @@
 
 #content
 {
-	margin-left: 322px;
+	margin-left: 250px;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
@@ -124,7 +124,7 @@
 
 .closed
 {
-	left: -272px;
+	left: -200px;
 }
 
 #content.closed
