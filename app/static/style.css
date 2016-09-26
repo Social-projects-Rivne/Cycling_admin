@@ -1,0 +1,112 @@
+.icon
+{
+	float: left;
+    margin-top: 13px;
+    margin-left: 8px;
+}
+
+.logo-a
+{
+	color: #fff !important;
+}
+
+.logo-a:hover
+{
+	color: #fff !important;
+	cursor: pointer !important;
+}
+
+.navbar
+{
+	background-color: #106CC8;
+	border-radius: 0px !important;
+}
+
+.navbar-header, .navbar-brand
+{
+	color: #fff !important;
+	font-size: 18px !important;
+}
+
+.form-control
+{
+	background-color: #3E85CE !important;
+	border: none !important;
+	border-radius: 0px 3px 3px 0px;
+	width: 400px !important;
+}
+
+.search-button
+{
+    display: block;
+    width: 100%;
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #fff;
+    border-top: none !important;
+    background-color: #3E85CE;
+    border-radius: 3px 0px 0px 3px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0px 1px 0px rgba(0,0,0,.075);
+}
+
+.navbar-brand
+{
+	line-height: 18px !important;
+	margin-right: 150px !important;
+}
+
+.navmenu
+{
+	width: 272px;
+	float: left;
+}
+
+.menu-title
+{
+	display: block;
+    width: 272px;
+    height: 30px;
+    margin-left: 5px;
+	color: #b5abab !important;    
+}
+
+.active
+{
+	background-color: #EEEEEE !important;
+	color: #106CC8;
+}
+
+
+.sidenav-ul li a
+{
+	color: #b5abab;
+}
+
+.form-control::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+    color: #FFF !important;
+}
+.form-control:-moz-placeholder, textarea:-moz-placeholder {
+    color: #FFF !important;
+}
+
+.form-control:focus {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+    box-shadow: inset 0px 1px 0px rgba(0,0,0,.075) !important;
+    color: #fff;
+}
+
+#content
+{
+	display: inline-block;
+	margin-left: 50px;
+}
+
+.content-header
+{
+	color: #4187D2 !important;
+	margin-top: 0px !important;
+    margin-bottom: 35px !important;
+}
