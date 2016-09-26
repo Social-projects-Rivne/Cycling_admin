@@ -73,13 +73,21 @@
     width: 272px;
     height: 30px;
     margin-left: 5px;
-	color: #b5abab !important;    
+    margin-bottom: 10px;
+	color: #4187D2 !important;
+	font-size: 20px;
+	text-decoration: none !important;
+}
+
+.menu-title:hover
+{
+	text-decoration: none;
 }
 
 .active
 {
 	background-color: #EEEEEE !important;
-	color: #106CC8;
+	color: #106CC8 !important;
 }
 
 .sidenav-ul li a
