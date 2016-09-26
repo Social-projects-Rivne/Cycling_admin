@@ -124,7 +124,7 @@ class AdminController(object):
 
         return self._response_for_ajax(success=True, status_code=200)
 
-    def _response_for_ajax(success, status_code):
+    def _response_for_ajax(self, success, status_code):
         """Quick forming response for ajax methods."""
         return (dumps({'success': success}),
                 status_code,
