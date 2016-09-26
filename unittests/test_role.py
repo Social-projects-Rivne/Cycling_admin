@@ -20,7 +20,7 @@ from app.models.user import User
 trail1 = random.randint(100,1000)
 trail2 = random.randint(100,1000)
 
-class TestROle(unittest.TestCase):
+class TestRole(unittest.TestCase):
 
     """Test case for getting a role from a user"""
 
