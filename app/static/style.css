@@ -131,3 +131,25 @@
 {
 	margin-left: 22px;
 }
+
+.table 
+{
+	font-family: Impact, sans;
+}
+
+.table_checkboxes 
+{
+	transform: scale(0.75);
+}
+
+.table_select
+{
+	border:none; 
+	background-color:inherit;
+}
+
+.edit_pencil_href
+{
+	color: black; 
+	text-decoration: none;
+}
