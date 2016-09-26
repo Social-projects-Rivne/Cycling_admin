@@ -61,7 +61,10 @@
 .navmenu
 {
 	width: 272px;
-	float: left;
+	left: 0px;
+	position: fixed;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 .menu-title
@@ -78,7 +81,6 @@
 	background-color: #EEEEEE !important;
 	color: #106CC8;
 }
-
 
 .sidenav-ul li a
 {
@@ -100,8 +102,9 @@
 
 #content
 {
-	display: inline-block;
-	margin-left: 50px;
+	margin-left: 322px;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
 .content-header
@@ -109,4 +112,14 @@
 	color: #4187D2 !important;
 	margin-top: 0px !important;
     margin-bottom: 35px !important;
+}
+
+.closed
+{
+	left: -272px;
+}
+
+#content.closed
+{
+	margin-left: 22px;
 }
