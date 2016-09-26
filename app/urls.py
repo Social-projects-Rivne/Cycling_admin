@@ -35,6 +35,10 @@ def edit_user_page(id):
     return _admin_controller.get_edit_user_page(id, request.form)
 
 
+@app.route('users/<id>/edit', methods=['POST'])
+def edit_user_role(id):
+    return _admin_controller.change_user_group(id, request.json)
+
 @app.route('/', methods=['GET'])
 def render_base():
     return render_template("form.html")
