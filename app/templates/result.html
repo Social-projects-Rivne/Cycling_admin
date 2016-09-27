@@ -11,6 +11,9 @@
 {% endblock %}
 
 {% block result %}
+{% if value is string %}
+	<h3 class="NoMatches">Matches doesn't exist</h3>
+{% else %}
 <div>
 <!-- <table class="table table-hover"> -->
 <table class="table">
@@ -59,4 +62,5 @@
 	</tbody>
 </table>
 </div>
+{% endif %}
 {% endblock %}
