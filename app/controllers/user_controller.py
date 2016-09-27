@@ -122,27 +122,31 @@ class AdminController(object):
             u_id = str(user_id)
             u_role = int(params['user_role'])
         except:
-            return self._response_for_ajax(success=False, status_code=500)
+            return self._response_for_ajax(success='Unable to parse input \
+                                           parameters in query.',
+                                           status_code=500)
 
         try:
             user_to_change = User.query.filter_by(id=u_id).first()
         except:
-            return self._response_for_ajax(success=False, status_code=500)
+            return self._response_for_ajax(success='Unable select user by id.',
+                                           status_code=500)
 
         if user_to_change.role_id == u_role:
-            return self._response_for_ajax(success=True, status_code=200)
+            return self._response_for_ajax(msg='OK', status_code=200)
 
         user_to_change.role_id = u_role
 
         try:
             db.session.commit()
         except:
-            return self._response_for_ajax(success=False, status_code=500)
+            return self._response_for_ajax(msg='Unable to change user role.',
+                                           status_code=500)
 
-        return self._response_for_ajax(success=True, status_code=200)
+        return self._response_for_ajax(msg='OK', status_code=200)
 
-    def _response_for_ajax(self, success, status_code):
+    def _response_for_ajax(self, msg, status_code):
         """Quick forming response for ajax methods."""
-        return (dumps({'success': success}),
+        return (dumps({'message': msg}),
                 status_code,
                 {'ContentType': 'application/json'})
