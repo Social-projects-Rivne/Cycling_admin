@@ -111,6 +111,7 @@
 #content
 {
 	margin-left: 250px;
+	margin-right: 5%;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
@@ -129,7 +130,8 @@
 
 #content.closed
 {
-	margin-left: 22px;
+	margin-left: 5%;
+	margin-right: 5%;
 }
 
 .table 

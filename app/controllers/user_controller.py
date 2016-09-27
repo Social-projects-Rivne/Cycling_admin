@@ -13,7 +13,7 @@ from json import dumps
 
 from app import app
 from app import db
-from app.models.user import User, UserHandler
+from app.models.user import User
 from app.views.searchview import AdminView
 from app.views.view import View
 
@@ -22,11 +22,11 @@ class AdminController(object):
     """docstring for AdminController"""
 
     _admin_view = AdminView()
+    _columns_to_query = (User.id, User.full_name, User.email, 
+                         User.is_active, User.avatar, User.role_id)
 
     def __init__(self):
         """Create instances of models and views"""
-        self.users_model = User()
-        self.users_model = UserHandler()
         self.view = View()
 
     def delete_by_id(self, user_id, delete=0):
@@ -43,11 +43,11 @@ class AdminController(object):
 
     def get_all_users(self):
         """
-        Get list of all users from db via User model and return view
-        rendering function
+        Get list of all users from db and return view rendering function
         """
-        _users_list = self.users_model.select_all_users()
-        return self.view.render_users_list(_users_list)
+        users_db_obj = db.session.query(*self._columns_to_query)
+        users_list = [user for user in users_db_obj]
+        return self.view.render_users_list(users_list)
 
     def get_user_by_id(self, id):
         """
@@ -102,17 +102,22 @@ class AdminController(object):
         exists3 = db.session.query(db.exists().
                                    where(User.role_id == value)).scalar()
 
+        search = '%'+value+'%'
+
         if exists:
-            users_db_obj = db.session.query(User).filter_by(full_name=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter\
+              (User.full_name.like(search))
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists2:
-            users_db_obj = db.session.query(User).filter_by(email=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter\
+              (User.email.like(search))
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists3:
-            users_db_obj = db.session.query(User).filter_by(role_id=value).add_columns('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter_by\
+              (role_id=value)
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")
