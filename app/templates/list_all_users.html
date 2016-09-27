@@ -27,13 +27,12 @@
 				<td>{{user[0]}}</td>
 				<td>{{user[1]}}</td>
 				<td>{{user[2]}}</td>
-        <td>
-            <input type="checkbox" id="activation{{user[0]}}"
-                   data-check-id="activation{{user[0]}}" 
-                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}" 
-                                   {% if not user[3] %} checked {% endif %}
-            >
-        </td>  
+		        <td>
+		            <input type="checkbox" class="table_checkboxes" id="activation{{user[0]}}"
+		                   data-check-id="activation{{user[0]}}" 
+		                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}" 
+		                                   {% if not user[3] %} checked {% endif %}>
+		        </td>  
 				<td>{{user[4]}}</td>
 				<td>
           <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
@@ -46,7 +45,7 @@
 					{% endif %}
 					</select>
 				</td>
-				<td><a href='#' style='color: black; text-decoration: none'>&#128393;</a></td>
+				<td><a href='#' class="edit_pencil_href"><span class="glyphicon glyphicon-pencil"></span></a></td>
 			</tr>
 		{% endfor %}
 	</tbody>
