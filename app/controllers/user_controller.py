@@ -6,7 +6,9 @@
 """
 
 import cgi
-import sys, os
+import sys
+import os
+
 from json import dumps
 
 from app import app
@@ -53,6 +55,9 @@ class AdminController(object):
         """
         return db.session.query(User).get(id)
 
+    def is_last_admin(self):
+        return db.session.query(User).filter_by(role_id=1).count() == 1
+
     def get_edit_user_page(self, id, params):
         """
         This method analyze params and return user edit page
@@ -64,18 +69,26 @@ class AdminController(object):
         if not user:
             error = "User with specified id is not found."
         else:
+            if user.role_id == 1 and self.is_last_admin():
+                role_disabled = True
+            else:
+                role_disabled = False
             # if params are not None, then it`s put method
             if params:
                 user.full_name = params['full_name']
                 user.email = params['email']
-                user.is_active = 0 if 'is_active' in params else 1
+                if 'is_active' in params:
+                    user.is_active = 0
+                else:
+                    user.is_active = 1
                 user.role_id = params['role_id']
                 db.session.commit()
                 message = "Changes done."
 
         return self.view.render_edit_user(user=user,
                                           message=message,
-                                          error=error)
+                                          error=error,
+                                          role_disabled=role_disabled)
 
     def search_user(self, value):
         """
