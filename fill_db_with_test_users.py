@@ -20,7 +20,7 @@ db.create_all()
 for line in USERS:
     u = User(full_name = make_name(line),
              email=make_email(line),
-             password='1', is_active=True, role_id='1')
+             password='1', is_active=True, role_id='0')
     db.session.add(u)
     db.session.commit()
     print '.',

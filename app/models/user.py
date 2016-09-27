@@ -8,7 +8,6 @@ Class User implements model of the user table in database.
 
 from app import db
 
-
 class User(db.Model):
 
     """Class represents user model in database.

@@ -8,4 +8,8 @@
     	<input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
 	</div>
 </form>
+
+	{% if message %}
+        <span class="help-inline">[{{ message }}]</span><br>
+    {% endif %}
 {% endblock %}

@@ -4,7 +4,7 @@
 """
     This module is for URL routing.
 """
-
+import json
 from flask import Response, request, render_template, redirect, url_for
 
 from app import app
@@ -13,13 +13,11 @@ from app.controllers.user_controller import AdminController
 _admin_controller = AdminController()
 
 
-@app.route('/user/<int:user_id>', methods=['DELETE'])
-# @login_required
+@app.route('/user/<int:user_id>', methods=['DELETE', 'PUT'])
 def delete_user(user_id):
-    is_success = AdminController().delete_by_id(user_id)
-    message = 'Deleting the user with id=%s: %s' % (user_id, is_success)
-    return redirect(url_for('index'), message=message)
-
+    delete_flag = 0 if  request.method == 'DELETE' else 1
+    is_success = AdminController().delete_by_id(user_id, delete_flag)
+    return  json.dumps({'success':is_success}), 200 if is_success else 404, {'ContentType':'application/json'}
 
 @app.route('/users/all')
 def list_all_users():
@@ -35,9 +33,14 @@ def edit_user_page(id):
     return _admin_controller.get_edit_user_page(id, request.form)
 
 
+@app.route('/users/<int:id>/role_edit', methods=['POST'])
+def edit_user_role(id):
+    return _admin_controller.change_user_group(id, request.get_json())
+
+
 @app.route('/', methods=['GET'])
 def render_base():
-    return render_template("form.html")
+    return render_template("form.html", message=None)
 
 
 @app.route('/users/search', methods=["POST"])

@@ -6,7 +6,10 @@
 """
 
 import cgi
-import sys, os
+import sys
+import os
+
+from json import dumps
 
 from app import app
 from app import db
@@ -26,11 +29,12 @@ class AdminController(object):
         self.users_model = UserHandler()
         self.view = View()
 
-    def delete_by_id(self, user_id):
+    def delete_by_id(self, user_id, delete=0):
         u_to_delete = User.query.filter_by(id=str(user_id)).first()
         # print u_to_delete.id
         try:
-            db.session.delete(u_to_delete)
+            # db.session.delete(u_to_delete)
+            u_to_delete.is_active = delete
             db.session.commit()
             return True
         except:
@@ -51,6 +55,9 @@ class AdminController(object):
         """
         return db.session.query(User).get(id)
 
+    def is_last_admin(self):
+        return db.session.query(User).filter_by(role_id=1).count() == 1
+
     def get_edit_user_page(self, id, params):
         """
         This method analyze params and return user edit page
@@ -62,18 +69,26 @@ class AdminController(object):
         if not user:
             error = "User with specified id is not found."
         else:
+            if user.role_id == 1 and self.is_last_admin():
+                role_disabled = True
+            else:
+                role_disabled = False
             # if params are not None, then it`s put method
             if params:
                 user.full_name = params['full_name']
                 user.email = params['email']
-                user.is_active = 0 if 'is_active' in params else 1
+                if 'is_active' in params:
+                    user.is_active = 0
+                else:
+                    user.is_active = 1
                 user.role_id = params['role_id']
                 db.session.commit()
                 message = "Changes done."
 
         return self.view.render_edit_user(user=user,
                                           message=message,
-                                          error=error)
+                                          error=error,
+                                          role_disabled=role_disabled)
 
     def search_user(self, value):
         """
@@ -109,3 +124,33 @@ class AdminController(object):
             return self._admin_view.render_search_page(result)
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")
+
+    def change_user_group(self, user_id, params):
+        try:
+            u_id = str(user_id)
+            u_role = int(params['user_role'])
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        try:
+            user_to_change = User.query.filter_by(id=u_id).first()
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        if user_to_change.role_id == u_role:
+            return self._response_for_ajax(success=True, status_code=200)
+
+        user_to_change.role_id = u_role
+
+        try:
+            db.session.commit()
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        return self._response_for_ajax(success=True, status_code=200)
+
+    def _response_for_ajax(self, success, status_code):
+        """Quick forming response for ajax methods."""
+        return (dumps({'success': success}),
+                status_code,
+                {'ContentType': 'application/json'})
