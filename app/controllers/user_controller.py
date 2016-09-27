@@ -132,6 +132,9 @@ class AdminController(object):
             return self._response_for_ajax(success='Unable select user by id.',
                                            status_code=500)
 
+        if user_to_change.role_id == 1 and self.is_last_admin():
+            return self._response_for_ajax(msg='OK', status_code=200)
+
         if user_to_change.role_id == u_role:
             return self._response_for_ajax(msg='OK', status_code=200)
 
