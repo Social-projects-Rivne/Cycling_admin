@@ -7,6 +7,7 @@
 
 import cgi
 import sys, os
+from json import dumps
 
 from app import app
 from app import db
@@ -102,3 +103,33 @@ class AdminController(object):
             return self._admin_view.render_search_page(result)
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")
+
+    def change_user_group(self, user_id, params):
+        try:
+            u_id = str(user_id)
+            u_role = int(params['user_role'])
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        try:
+            user_to_change = User.query.filter_by(id=u_id).first()
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        if user_to_change.role_id == u_role:
+            return self._response_for_ajax(success=True, status_code=200)
+
+        user_to_change.role_id = u_role
+
+        try:
+            db.session.commit()
+        except:
+            return self._response_for_ajax(success=False, status_code=500)
+
+        return self._response_for_ajax(success=True, status_code=200)
+
+    def _response_for_ajax(self, success, status_code):
+        """Quick forming response for ajax methods."""
+        return (dumps({'success': success}),
+                status_code,
+                {'ContentType': 'application/json'})

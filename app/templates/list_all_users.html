@@ -22,36 +22,38 @@
 
 	<tbody>
 		{% for user in users_list %}
-		<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
-		<tr>
-			<td>{{user[0]}}</td>
-			<td>{{user[1]}}</td>
-			<td>{{user[2]}}</td>
-			<td>
-				<input type="checkbox" id="activation{{user[0]}}"
-					data-check-id="activation{{user[0]}}" 
-					data-record-id="{{user[0]}}" data-record-title="{{user[1]}}" 
-				 {% if not user[3] %} checked {% endif %}
-				>
-			</td>
-			<td>{{user[4]}}</td>
-			<td>
-				<select>
-				{% if user[5] == 1 %}
-					<option selected>admin</option>
-					<option>user</option>
-				{% else %}
-					<option>admin</option>
-					<option selected>user</option>
-				{% endif %}
-				</select>
-			</td>
-			<td><a href='#' style='color: black; text-decoration: none'>&#128393;</a></td>
-		</tr>
+			<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
+			<tr>
+				<td>{{user[0]}}</td>
+				<td>{{user[1]}}</td>
+				<td>{{user[2]}}</td>
+        <td>
+            <input type="checkbox" id="activation{{user[0]}}"
+                   data-check-id="activation{{user[0]}}" 
+                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}" 
+                                   {% if not user[3] %} checked {% endif %}
+            >
+        </td>  
+				<td>{{user[4]}}</td>
+				<td>
+          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
+					{% if user[5] == 2 %}
+						<option selected>admin</option>
+						<option>user</option>
+					{% else %}
+            <option>admin</option>
+						<option selected>user</option>
+					{% endif %}
+					</select>
+				</td>
+				<td><a href='#' style='color: black; text-decoration: none'>&#128393;</a></td>
+			</tr>
 		{% endfor %}
 	</tbody>
 </table>
 </div>
+
+{% include 'modal_confirm_role_change.html' %}
 
 {% include 'modal_confirm_remove.html' %}
 
