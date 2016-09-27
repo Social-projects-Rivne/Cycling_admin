@@ -1,8 +1,6 @@
 $(document).ready(function(){
     var user_id = NaN;
     var role = NaN;
-    var cipId = NaN;
-
     var roleArray = {};
 
     var selects = $('.table_select');
@@ -20,7 +18,6 @@ $(document).ready(function(){
     $('.table_select').on('change', function(){
 	user_id = $(this).data('id');
 	role = $(this).val();
-	cipId = $(this).data('cipId');
         $('#roleEditModal').modal('show');
     });
     $('#roleEditModal').on('click', '.btn-primary', function(e) {
@@ -40,6 +37,6 @@ $(document).ready(function(){
 	})
     });
     $('#roleEditModal').on('hidden.bs.modal', function() {
-	// $('.table_select[data-cip-id="' + cipId + '"]')[0].value = roleArray[user_id];
+	$('.table_select[data-id="' + user_id + '"]')[0].value = roleArray[user_id];
     });
 });
