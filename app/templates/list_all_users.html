@@ -36,12 +36,12 @@
 				</td>
 				<td>{{user[4]}}</td>
 				<td>
-					<select class="table_select">
+          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
 					{% if user[5] == 2 %}
 						<option selected>admin</option>
 						<option>user</option>
 					{% else %}
-						<option>admin</option>
+            <option>admin</option>
 						<option selected>user</option>
 					{% endif %}
 					</select>
@@ -52,4 +52,7 @@
 	</tbody>
 </table>
 </div>
+
+{% include 'modal_confirm_role_change.html' %}
+
 {% endblock %}
