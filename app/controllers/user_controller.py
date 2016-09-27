@@ -1,9 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-"""
-    User controller class for CRUD with User model.
-"""
+""" User controller class for CRUD with User model. """
 
 import cgi
 import sys
@@ -19,12 +17,12 @@ from app.views.view import View
 
 
 class AdminController(object):
-    """docstring for AdminController"""
+    """ Docstring for AdminController. """
 
     _admin_view = AdminView()
 
     def __init__(self):
-        """Create instances of models and views"""
+        """Create instances of models and views."""
         self.users_model = User()
         self.users_model = UserHandler()
         self.view = View()
@@ -44,14 +42,14 @@ class AdminController(object):
     def get_all_users(self):
         """
         Get list of all users from db via User model and return view
-        rendering function
+        rendering function.
         """
         _users_list = self.users_model.select_all_users()
         return self.view.render_users_list(_users_list)
 
     def get_user_by_id(self, id):
         """
-        Return user object by specified id, None if not found
+        Return user object by specified id, None if not found.
         """
         return db.session.query(User).get(id)
 
@@ -59,9 +57,7 @@ class AdminController(object):
         return db.session.query(User).filter_by(role_id=1).count() == 1
 
     def get_edit_user_page(self, id, params):
-        """
-        This method analyze params and return user edit page
-        """
+        """ This method analyze params and return user edit page. """
         error = None
         message = None
 
@@ -93,7 +89,7 @@ class AdminController(object):
     def search_user(self, value):
         """
         Recieve from input, search for matches and return
-        dict of them if exists
+        dict of them if exists.
         """
         exists = db.session.query(db.exists().
                                   where(User.full_name == value)).scalar()
@@ -106,20 +102,20 @@ class AdminController(object):
 
         if exists:
             users_db_obj = db.session.query(User).filter\
-            (User.full_name.like(search)).add_columns\
-            ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+              (User.full_name.like(search)).add_columns\
+              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
             result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists2:
             users_db_obj = db.session.query(User).filter\
-            (User.email.like(search)).add_columns\
-            ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+              (User.email.like(search)).add_columns\
+              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
             result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists3:
             users_db_obj = db.session.query(User).filter_by\
-            (role_id=value).add_columns\
-            ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
+              (role_id=value).add_columns\
+              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
             result = [row[1:] for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         else:
