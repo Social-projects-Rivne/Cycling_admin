@@ -27,7 +27,7 @@ $(document).ready(function(){
         roleChanged = false
         $.ajax({
 		url: '/users/' + user_id + '/role_edit',
-		data: '{"user_role": "' + (role === 'admin' ? '2' : '1') + '"}',
+		data: '{"user_role": "' + (role === 'admin' ? '1' : '0') + '"}',
 		contentType: 'application/json',
 		dataType: 'json',
 		type: 'POST',
@@ -40,6 +40,6 @@ $(document).ready(function(){
 	})
     });
     $('#roleEditModal').on('hidden.bs.modal', function() {
-	$('.table_select[data-cip-id="' + cipId + '"]')[0].value = roleArray[user_id];
+	// $('.table_select[data-cip-id="' + cipId + '"]')[0].value = roleArray[user_id];
     });
 });
