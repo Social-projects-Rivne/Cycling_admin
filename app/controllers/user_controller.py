@@ -105,22 +105,19 @@ class AdminController(object):
         search = '%'+value+'%'
 
         if exists:
-            users_db_obj = db.session.query(User).filter\
-              (User.full_name.like(search)).add_columns\
-              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter\
+              (User.full_name.like(search))
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists2:
-            users_db_obj = db.session.query(User).filter\
-              (User.email.like(search)).add_columns\
-              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter\
+              (User.email.like(search))
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         elif exists3:
-            users_db_obj = db.session.query(User).filter_by\
-              (role_id=value).add_columns\
-              ('id', 'full_name', 'email', 'is_active', 'avatar', 'role_id')
-            result = [row[1:] for row in users_db_obj]
+            users_db_obj = db.session.query(*self._columns_to_query).filter_by\
+              (role_id=value)
+            result = [row for row in users_db_obj]
             return self._admin_view.render_search_page(result)
         else:
             return self._admin_view.render_search_page("Matches doesn't exist")
