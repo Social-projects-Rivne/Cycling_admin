@@ -122,15 +122,15 @@ class AdminController(object):
             u_id = str(user_id)
             u_role = int(params['user_role'])
         except:
-            return self._response_for_ajax(success='Unable to parse input \
+            return self._response_for_ajax(msg='Unable to parse input \
                                            parameters in query.',
-                                           status_code=500)
+                                           status_code=400)
 
         try:
             user_to_change = User.query.filter_by(id=u_id).first()
         except:
-            return self._response_for_ajax(success='Unable select user by id.',
-                                           status_code=500)
+            return self._response_for_ajax(msg='Unable select user by id.',
+                                           status_code=400)
 
         if user_to_change.role_id == 1 and self.is_last_admin():
             return self._response_for_ajax(msg='OK', status_code=200)
@@ -147,6 +147,18 @@ class AdminController(object):
                                            status_code=500)
 
         return self._response_for_ajax(msg='OK', status_code=200)
+
+    def get_user_role_by_id(self, user_id):
+        """Return user role by id for quick role change."""
+        try:
+            u_id = str(user_id)
+        except:
+            return self._response_for_ajax(msg='Unable to parse input \
+                                           parameters in query.',
+                                           status_code=400)
+
+        cur_user = User.query.filter_by(id=u_id).first()
+        return self._response_for_ajax(msg=cur_user.role(), status_code=200)
 
     def _response_for_ajax(self, msg, status_code):
         """Quick forming response for ajax methods."""
