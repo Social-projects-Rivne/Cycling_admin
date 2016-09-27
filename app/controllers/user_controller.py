@@ -1,7 +1,9 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-""" User controller class for CRUD with User model. """
+"""
+    User controller class for CRUD with User model.
+"""
 
 import cgi
 import sys
@@ -17,12 +19,12 @@ from app.views.view import View
 
 
 class AdminController(object):
-    """ Docstring for AdminController. """
+    """docstring for AdminController"""
 
     _admin_view = AdminView()
 
     def __init__(self):
-        """Create instances of models and views."""
+        """Create instances of models and views"""
         self.users_model = User()
         self.users_model = UserHandler()
         self.view = View()
@@ -42,14 +44,14 @@ class AdminController(object):
     def get_all_users(self):
         """
         Get list of all users from db via User model and return view
-        rendering function.
+        rendering function
         """
         _users_list = self.users_model.select_all_users()
         return self.view.render_users_list(_users_list)
 
     def get_user_by_id(self, id):
         """
-        Return user object by specified id, None if not found.
+        Return user object by specified id, None if not found
         """
         return db.session.query(User).get(id)
 
@@ -57,7 +59,9 @@ class AdminController(object):
         return db.session.query(User).filter_by(role_id=1).count() == 1
 
     def get_edit_user_page(self, id, params):
-        """ This method analyze params and return user edit page. """
+        """
+        This method analyze params and return user edit page
+        """
         error = None
         message = None
 
@@ -89,7 +93,7 @@ class AdminController(object):
     def search_user(self, value):
         """
         Recieve from input, search for matches and return
-        dict of them if exists.
+        dict of them if exists
         """
         exists = db.session.query(db.exists().
                                   where(User.full_name == value)).scalar()

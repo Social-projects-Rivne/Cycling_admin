@@ -42,21 +42,3 @@ class User(db.Model):
 
     def __repr__(self):
         return '<User %s>' % self.full_name
-
-
-class UserHandler(object):
-
-    """Purpose of this class is to CRUD data about Users from DB"""
-
-    def select_all_users(self):
-        """
-        Send select * query to the db except password column, return list
-        """
-        self.users_db_obj = User.query.add_columns('id',
-                                                   'full_name',
-                                                   'email',
-                                                   'is_active',
-                                                   'avatar',
-                                                   'role_id')
-        self.result = [row[1:] for row in self.users_db_obj]
-        return self.result
