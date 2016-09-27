@@ -6,7 +6,6 @@ $(document).ready(function(){
     var roleArray = {};
 
     var selects = $('.table_select');
-    console.log(selects);
     var i = 0;
     while (true) {
 	if (selects.hasOwnProperty(i)) {
