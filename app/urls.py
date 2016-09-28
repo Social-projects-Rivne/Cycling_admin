@@ -43,7 +43,7 @@ def get_user_role(id):
 
 @app.route('/', methods=['GET'])
 def render_base():
-    return render_template("form.html", message=None)
+    return render_template("list_all_users.html", message=None)
 
 
 @app.route('/users/search', methods=["POST"])
