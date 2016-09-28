@@ -8,6 +8,9 @@
 import cgi
 import sys
 import os
+import hashlib
+import random
+import string
 
 from json import dumps
 
@@ -64,6 +67,8 @@ class AdminController(object):
         """
         error = None
         message = None
+        # show if message variable is good
+        good_message = True
 
         user = self.get_user_by_id(id)
         if not user:
@@ -75,20 +80,62 @@ class AdminController(object):
                 role_disabled = False
             # if params are not None, then it`s put method
             if params:
-                user.full_name = params['full_name']
-                user.email = params['email']
-                if 'is_active' in params:
-                    user.is_active = 0
+                if self.edit_user(self.user, params):
+                    message = "Changes done."
                 else:
-                    user.is_active = 1
-                user.role_id = params['role_id']
-                db.session.commit()
-                message = "Changes done."
+                    message = "Error occurred"
+                    good_message = False
 
         return self.view.render_edit_user(user=user,
                                           message=message,
+                                          good_message=good_message,
                                           error=error,
                                           role_disabled=role_disabled)
+
+    def password_to_hash(self, password):
+        """
+        This method return password hash
+        """
+        return hashlib.sha512(password.encode()).hexdigest()
+
+    def reset_password(self, email):
+        """
+        This method reset password of user with specified email
+        and send notification email on it
+        """
+        user = db.session.query(User).filter_by(email=email).first()
+        password = self.generate_password()
+        hashed_password - self.password_to_hash(password)
+        user.password = hashed_password
+        self.send_reset_password_email(password)
+
+    def send_reset_password_email(self, password):
+        pass
+
+    def generate_password(self, size=24):
+        """
+        Return random generated password with uppercase letters and digits
+        """
+        return ''.join(
+            random.SystemRandom().choice(
+                string.ascii_uppercase + string.digits) for _ in range(24))
+
+    def edit_user(self, user, params):
+        """
+        Edit given user with given params
+        """
+        if not params or not user:
+            return False
+
+        user.full_name = params['full_name']
+        user.email = params['email']
+        if 'is_active' in params:
+            user.is_active = 0
+        else:
+            user.is_active = 1
+        user.role_id = params['role_id']
+        db.session.commit()
+        return True
 
     def search_user(self, value):
         """
