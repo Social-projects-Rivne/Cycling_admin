@@ -27,6 +27,7 @@ class AdminController(object):
 
     def __init__(self):
         """Create instances of models and views"""
+
         self.view = View()
 
     def delete_by_id(self, user_id, delete=0):
