@@ -13,7 +13,7 @@ from json import dumps
 
 from app import app
 from app import db
-from app.models.user import User, UserHandler
+from app.models.user import User
 from app.views.searchview import AdminView
 from app.views.view import View
 
@@ -26,7 +26,6 @@ class AdminController(object):
     def __init__(self):
         """Create instances of models and views"""
         self.users_model = User()
-        self.users_model = UserHandler()
         self.view = View()
 
     def delete_by_id(self, user_id, delete=0):
