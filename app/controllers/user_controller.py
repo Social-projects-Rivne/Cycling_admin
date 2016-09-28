@@ -96,6 +96,7 @@ class AdminController(object):
         Recieve from input, search for matches and return
         dict of them if exists
         """
+
         exists = db.session.query(db.exists().
                                   where(User.full_name == value)).scalar()
         exists2 = db.session.query(db.exists().
