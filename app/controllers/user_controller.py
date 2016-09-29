@@ -107,8 +107,10 @@ class AdminController(object):
         user = db.session.query(User).filter_by(id=id).first()
         password = self.generate_password()
         hashed_password = self.password_to_hash(password)
+        print password, " --> ", hashed_password
         user.password = hashed_password
         print "Trying to reset password of ", user.full_name
+        db.session.commit()
         try:
             sender = EmailSender()
             sender.send_reset_password_email(user, password)

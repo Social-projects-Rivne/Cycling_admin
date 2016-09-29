@@ -55,24 +55,22 @@
   </div>
 {% endif %}
 
-<div class="modal fade" id="reset-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="reset-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title" id="myModalLabel">Confirm <span class="todo"></span>ing</h4>
+        <button id="reset-modal-close" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 id="reset-modal-title" class="modal-title"></h4>
       </div>
-      <div class="modal-body">
-        <p>Reset password?</p>
+      <div id="reset-modal-body" class="modal-body">
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-danger btn-ok">Indeed</button>
+        <button id="reset-modal-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="reset-modal-ok" type="button" class="btn btn-danger btn-ok">Indeed</button>
       </div>
     </div>
   </div>
 </div>
-
 
 <script>
 var user_id = {{ user.id }};
@@ -93,23 +91,54 @@ function reset_data(){
   edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
 }
 
-// setup modal
-$('#reset-modal').on('click', '.btn-ok', function(e) {
+
+// this fucntion execute after AJAX request
+function onAJAXFinish() {
+  $('reset-modal-title').html("Result");
+  $('#reset-modal-ok').html("OK").show().unbind('click').click(function(e) {
+    console.log("SECOND EVENT");
+    $('#reset-modal').modal('hide');
+    resetModal();
+  });
+
+
+}
+
+resetModal();
+// this function reset everything in modal to start condition
+function resetModal() {
+  $('#reset-modal-cancel').show();
+  $('#reset-modal-close').show();
+  
+  $('#reset-modal-title').html("Confirm");
+  $('#reset-modal-body').html("<p>Reset password?</p>");
+
+  $('#reset-modal-result-body').show();
+
+  // change on click event
+  $('#reset-modal-ok').show().html("Indeed").unbind('click').click(function(e) {
+    console.log("FIRST EVENT");
+    $('#reset-modal-body').html("<i class='fa fa-spinner fa-spin'></i>Processing...");
+
+    $('#reset-modal-ok').hide();
+    $('#reset-modal-close').hide();
+    $('#reset-modal-cancel').hide();
+    $("#reset-modal-title").html('Wait a second');
 
     $.ajax({
             url: '/users/' + user_id + '/reset_password',
             type: 'POST',
             error: function(xhr,status,error){
-                    console.log('error');
-                    $('#reset-modal').modal('hide');
+                    $('#reset-modal-body').html("An error occurred.");
+                    onAJAXFinish();
                 },
             success: function(result,status,xhr){
-                    console.log('success');
-                    $('#reset-modal').modal('hide');
+                    $('#reset-modal-body').html("Success!");
+                    onAJAXFinish();
                 },
             }
     );
-});
-
+  });
+}
 </script>
 {% endblock content %}

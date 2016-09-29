@@ -23,10 +23,11 @@ class EmailSender(object):
                      " your password has been reset by Cycling admin",
                      " to: {}"]).format(user.full_name, new_password)
                 )
+        print "EMAIL BODY: ", html
         html_body = MIMEText(html, 'html')
 
-        username = "cycling.official@gmail.com"
-        password = "xUP,tB9Y"
+        username = "Cycling Admin"
+        password = "1Y_bjzIbVBK6wZ7Wodk5Nw"
 
         msg.attach(html_body)
 
