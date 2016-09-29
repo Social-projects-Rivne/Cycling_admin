@@ -23,30 +23,20 @@
 </head>
 <body>
 
-<div class="navbar" role="navigation">
-
+<div class="Cover">
+<div class="navbar navbar-fixed-top" role="navigation">
   <div class="navbar-header">
   <a class="logo-a"><span class="icon material-icons">menu</span></a>
-    <a class="navbar-brand logo-line" href="#">Cycling</a>
+    <a class="navbar-brand logo-line" href="/">Cycling</a>
   </div>
 
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-    <form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
-      <div class="input-group">
-          <div class="input-group-btn">
-              <button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-          </div>
-          <input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
-      </div>
-    </form>
-
+    {% block form %}{% endblock %}
    <!--  {% if message %}
           <span class="help-inline">[{{ message }}]</span><br>
     {% endif %} -->
-
-
   </div>
+</div>
 </div>
 
 <div class="navmenu navmenu-default" role="navigation">
@@ -65,8 +55,6 @@
     <h1 class="content-header">{% block title %}{% endblock %}</h1>
 
     {% block content %}{% endblock %}
-
-    {% block result %}{% endblock %}
 
 </div>
 
