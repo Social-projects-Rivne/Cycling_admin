@@ -15,9 +15,16 @@ _admin_controller = AdminController()
 
 @app.route('/user/<int:user_id>', methods=['DELETE', 'PUT'])
 def delete_user(user_id):
-    delete_flag = 0 if  request.method == 'DELETE' else 1
+    delete_flag = 0 if request.method == 'DELETE' else 1
     is_success = AdminController().delete_by_id(user_id, delete_flag)
-    return  json.dumps({'success':is_success}), 200 if is_success else 404, {'ContentType':'application/json'}
+    return json.dumps({'success': is_success}), 200 if is_success else 404, {'ContentType': 'application/json'}
+
+
+@app.route('/users/<int:id>/reset_password', methods=['POST'])
+def reset_user_password(id):
+    json_result, code = _admin_controller.reset_password(id)
+    return json.dumps(json_result), code, {'ContentType': 'application/json'}
+
 
 @app.route('/users/all')
 def list_all_users():
@@ -37,9 +44,11 @@ def edit_user_page(id):
 def edit_user_role(id):
     return _admin_controller.change_user_group(id, request.get_json())
 
+
 @app.route('/users/<int:id>/get_role', methods=['POST'])
 def get_user_role(id):
     return _admin_controller.get_user_role_by_id(id)
+
 
 @app.route('/', methods=['GET'])
 def render_base():

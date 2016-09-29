@@ -45,6 +45,7 @@
       <div style="display:inline-block;margin: 0 auto;">
         <input class='btn btn-primary' type='submit' value='Save'/>
         <button type='button' class='btn btn-link' onclick='reset_data()'>Cancel</button>
+        <button type='button' class='btn btn-link' data-toggle="modal" data-target="#reset-modal">Reset Password</button>
       </div>
     </div>
   </form>
@@ -54,22 +55,61 @@
   </div>
 {% endif %}
 
+<div class="modal fade" id="reset-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title" id="myModalLabel">Confirm <span class="todo"></span>ing</h4>
+      </div>
+      <div class="modal-body">
+        <p>Reset password?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-danger btn-ok">Indeed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
 <script>
+var user_id = {{ user.id }};
 
-  // this object holds field elements
-  var edit_form = {
-    fullname_field: document.getElementsByName('full_name')[0],
-    email_field: document.getElementsByName('email')[0],
-    is_active_field: document.getElementsByName('is_active')[0],
-    role_field: document.getElementsByName('role_id')[0]
-  };
+// this object holds field elements
+var edit_form = {
+  fullname_field: document.getElementsByName('full_name')[0],
+  email_field: document.getElementsByName('email')[0],
+  is_active_field: document.getElementsByName('is_active')[0],
+  role_field: document.getElementsByName('role_id')[0]
+};
 
-  reset_data();
-  function reset_data(){
-    edit_form.fullname_field.value = "{{ user.full_name }}";
-    edit_form.email_field.value = "{{ user.email }}";
-    edit_form.role_field.selectedIndex = {{ user.role_id }};
-    edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
-  }
+reset_data();
+function reset_data(){
+  edit_form.fullname_field.value = "{{ user.full_name }}";
+  edit_form.email_field.value = "{{ user.email }}";
+  edit_form.role_field.selectedIndex = {{ user.role_id }};
+  edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
+}
+
+// setup modal
+$('#reset-modal').on('click', '.btn-ok', function(e) {
+
+    $.ajax({
+            url: '/users/' + user_id + '/reset_password',
+            type: 'POST',
+            error: function(xhr,status,error){
+                    console.log('error');
+                    $('#reset-modal').modal('hide');
+                },
+            success: function(result,status,xhr){
+                    console.log('success');
+                    $('#reset-modal').modal('hide');
+                },
+            }
+    );
+});
+
 </script>
 {% endblock content %}

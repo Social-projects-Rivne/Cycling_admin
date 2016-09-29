@@ -12,12 +12,14 @@ class View(object):
 
     """View class for rendering templates."""
 
-    def render_edit_user(self, user, message, error, role_disabled):
+    def render_edit_user(self, user, message, error,
+                         role_disabled, good_message):
         print user.is_active
         """ Render edit user page """
         return render_template('edit_user.html',
                                user=user,
                                message=message,
+                               good_message=good_message,
                                error=error,
                                role_disabled=role_disabled)
 

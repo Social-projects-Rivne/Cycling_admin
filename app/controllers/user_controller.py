@@ -16,6 +16,7 @@ from json import dumps
 
 from app import app
 from app import db
+from app.utils.emailsend import EmailSender
 from app.models.user import User
 from app.views.searchview import AdminView
 from app.views.view import View
@@ -25,7 +26,7 @@ class AdminController(object):
     """docstring for AdminController"""
 
     _admin_view = AdminView()
-    _columns_to_query = (User.id, User.full_name, User.email, 
+    _columns_to_query = (User.id, User.full_name, User.email,
                          User.is_active, User.avatar, User.role_id)
 
     def __init__(self):
@@ -98,19 +99,23 @@ class AdminController(object):
         """
         return hashlib.sha512(password.encode()).hexdigest()
 
-    def reset_password(self, email):
+    def reset_password(self, id):
         """
         This method reset password of user with specified email
         and send notification email on it
         """
-        user = db.session.query(User).filter_by(email=email).first()
+        user = db.session.query(User).filter_by(id=id).first()
         password = self.generate_password()
-        hashed_password - self.password_to_hash(password)
+        hashed_password = self.password_to_hash(password)
         user.password = hashed_password
-        self.send_reset_password_email(password)
-
-    def send_reset_password_email(self, password):
-        pass
+        print "Trying to reset password of ", user.full_name
+        try:
+            sender = EmailSender()
+            sender.send_reset_password_email(user, password)
+            return {'result': 'success'}, 200
+        except Exception, error:
+            print error
+            return {'result': 'error'}, 404
 
     def generate_password(self, size=24):
         """
