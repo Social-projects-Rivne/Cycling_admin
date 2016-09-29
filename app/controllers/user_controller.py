@@ -107,16 +107,16 @@ class AdminController(object):
         user = db.session.query(User).filter_by(id=id).first()
         password = self.generate_password()
         hashed_password = self.password_to_hash(password)
-        print password, " --> ", hashed_password
+        # print password, " --> ", hashed_password
         user.password = hashed_password
-        print "Trying to reset password of ", user.full_name
+        # print "Trying to reset password of ", user.full_name
         db.session.commit()
         try:
             sender = EmailSender()
             sender.send_reset_password_email(user, password)
             return {'result': 'success'}, 200
         except Exception, error:
-            print error
+            print "EXCEPTION: ", error
             return {'result': 'error'}, 404
 
     def generate_password(self, size=24):

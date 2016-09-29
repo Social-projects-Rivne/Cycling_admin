@@ -2,10 +2,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import smtplib
 
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
+from flask import render_template
+import requests
 
 
 class EmailSender(object):
@@ -14,25 +13,24 @@ class EmailSender(object):
     """
 
     def send_reset_password_email(self, user, new_password):
-        msg = MIMEMultipart('alternative')
-        msg['Subject'] = "Password Reset"
-        msg['From'] = "Cycling Official <cycling.official@gmail.com>"
-        msg['To'] = user.email
-        html = (
-            "".join(["Hello, <strong>{}</strong>,",
-                     " your password has been reset by Cycling admin",
-                     " to: {}"]).format(user.full_name, new_password)
-                )
-        print "EMAIL BODY: ", html
-        html_body = MIMEText(html, 'html')
+        headers = {
+            "Accept": "application/json",
+            "Content-Type": "application/json",
+            "X-Postmark-Server-Token": "f2b33489-0ba6-4eb5-8372-dd394b960d22"
+        }
+        template = render_template(
+            "reset_password_email.html",
+            user=user, new_password=new_password)
+        print template
+        data = "".join([
+            "{'From': 'cycling.official@email.ua',",
+            " 'To': '", str(user.email), "',",
+            " 'Subject': 'Password Reset',",
+            " 'HtmlBody': '", str(template), "'}",
+        ])
 
-        username = "Cycling Admin"
-        password = "1Y_bjzIbVBK6wZ7Wodk5Nw"
-
-        msg.attach(html_body)
-
-        s = smtplib.SMTP('smtp.mandrillapp.com', 587)
-
-        s.login(username, password)
-        s.sendmail(msg['From'], msg['To'], msg.as_string())
-        s.quit()
+        r = requests.post(
+            "https://api.postmarkapp.com/email",
+            headers=headers,
+            data=data)
+        print r.text

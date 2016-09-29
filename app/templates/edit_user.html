@@ -96,7 +96,6 @@ function reset_data(){
 function onAJAXFinish() {
   $('reset-modal-title').html("Result");
   $('#reset-modal-ok').html("OK").show().unbind('click').click(function(e) {
-    console.log("SECOND EVENT");
     $('#reset-modal').modal('hide');
     resetModal();
   });
@@ -109,7 +108,7 @@ resetModal();
 function resetModal() {
   $('#reset-modal-cancel').show();
   $('#reset-modal-close').show();
-  
+
   $('#reset-modal-title').html("Confirm");
   $('#reset-modal-body').html("<p>Reset password?</p>");
 
@@ -117,7 +116,6 @@ function resetModal() {
 
   // change on click event
   $('#reset-modal-ok').show().html("Indeed").unbind('click').click(function(e) {
-    console.log("FIRST EVENT");
     $('#reset-modal-body').html("<i class='fa fa-spinner fa-spin'></i>Processing...");
 
     $('#reset-modal-ok').hide();
