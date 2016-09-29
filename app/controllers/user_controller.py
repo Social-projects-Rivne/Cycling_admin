@@ -95,33 +95,25 @@ class AdminController(object):
         Recieve from input, search for matches and return
         dict of them if exists
         """
-        exists = db.session.query(db.exists().
-                                  where(User.full_name == value)).scalar()
-        exists2 = db.session.query(db.exists().
-                                   where(User.email == value)).scalar()
-        exists3 = db.session.query(db.exists().
-                                   where(User.role_id == value)).scalar()
-
+        
         search = '%'+value+'%'
+        result = "Matches doesn't exist"
 
-        if exists:
-            users_db_obj = db.session.query(*self._columns_to_query).filter\
+        users_db_obj = db.session.query(*self._columns_to_query).filter\
               (User.full_name.like(search))
+        try:
+            print users_db_obj[0]
             result = [row for row in users_db_obj]
-            return self._admin_view.render_search_page(result)
-        elif exists2:
+        except IndexError:
             users_db_obj = db.session.query(*self._columns_to_query).filter\
               (User.email.like(search))
-            result = [row for row in users_db_obj]
-            return self._admin_view.render_search_page(result)
-        elif exists3:
-            users_db_obj = db.session.query(*self._columns_to_query).filter_by\
-              (role_id=value)
-            result = [row for row in users_db_obj]
-            return self._admin_view.render_search_page(result)
-        else:
-            return self._admin_view.render_search_page("Matches doesn't exist")
-
+            try:
+                print users_db_obj[0]
+                result = [row for row in users_db_obj]
+            except IndexError:
+                pass
+        return self._admin_view.render_search_page(result)
+       
     def change_user_group(self, user_id, params):
         try:
             u_id = str(user_id)
