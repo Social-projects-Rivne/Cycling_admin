@@ -1,36 +1,45 @@
 <!DOCTYPE html>
 <html>
 <head>
-	{% if title %}
+  {% if title %}
    <title>{{ title }} - users</title>
   {% else %}
    <title>Users of Rivne-cycling</title>
   {% endif %}
-	<meta charset="UTF-8">
+  <meta charset="UTF-8">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
     rel="stylesheet">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 
-	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-	<!-- Optional theme -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-	<script type="text/javascript" src="{{ url_for('static', filename='search.js')}}"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <script type="text/javascript" src="{{ url_for('static', filename='search.js')}}"></script>
   <script type="text/javascript" src="{{ url_for('static', filename='role_change_confirm.js')}}"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='style.css')}}" />
-	<!-- Latest compiled and minified JavaScript -->
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
 
 <div class="navbar" role="navigation">
 
   <div class="navbar-header">
-	<a class="logo-a"><span class="icon material-icons">menu</span></a>
+  <a class="logo-a"><span class="icon material-icons">menu</span></a>
     <a class="navbar-brand logo-line" href="#">Cycling</a>
   </div>
 
   <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+    <form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
+      <div class="input-group">
+          <div class="input-group-btn">
+              <button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+          </div>
+          <input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
+      </div>
+    </form>
 
    <!--  {% if message %}
           <span class="help-inline">[{{ message }}]</span><br>
