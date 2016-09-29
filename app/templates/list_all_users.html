@@ -4,80 +4,73 @@
 {% block form %}
 <form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
 	<div class="input-group">
-   		<div class="input-group-btn">
-       		<button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
-    	</div>
-    	<input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
+		<div class="input-group-btn">
+			<button class="btn search-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+		</div>
+		<input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
 	</div>
 </form>
 {% endblock %}
 
-
 {% block title %}Cycling users management{% endblock %}
-
-
 
 {% block content %}
 
-	{% if value is string %}
-		<h3 class="NoMatches">Matches doesn't exist</h3>
-	{% else %}
+{% if users_list is string %}
+<h3 class="NoMatches">Matches doesn't exist</h3>
+{% elif users_list %}
+<div>
+	<!-- <table class="table table-hover"> -->
+	<table class="table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Full Name</th>
+        <th>Email</th>
+        <th>Delete</th>
+        <th>Avatar</th>
+        <th>Role</th>
+        <th></th>
+      </tr>
+    </thead>
 
-		{% if users_list %}
-			<div>
-			<!-- <table class="table table-hover"> -->
-			<table class="table">
+		<tbody>
+			{% for user in users_list %}
+				<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
+				<tr>
+					<td>{{user[0]}}</td>
+					<td>{{user[1]}}</td>
+					<td>{{user[2]}}</td>
+			        <td>
+			            <input type="checkbox" class="table_checkboxes" id="activation{{user[0]}}"
+			                   data-check-id="activation{{user[0]}}"
+			                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}"
+			                                   {% if not user[3] %} checked {% endif %}>
+			        </td>
+					<td>{{user[4]}}</td>
+					<td>
+	          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
+						{% if user[5] == 1 %}
+							<option selected>admin</option>
+							<option>user</option>
+						{% else %}
+	            <option>admin</option>
+							<option selected>user</option>
+						{% endif %}
+						</select>
+					</td>
+					<td><a href='{{ url_for('edit_user_page', id=user[0]) }}' class="edit_pencil_href"><span class="glyphicon glyphicon-pencil"></span></a></td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 
-				<thead>
-					<tr>
-						<th>#</th>
-						<th>Full Name</th>
-						<th>Email</th>
-						<th>Delete</th>
-						<th>Avatar</th>
-						<th>Role</th>
-						<th></th>
-					</tr>
-				</thead>
 
-				<tbody>
-					{% for user in users_list %}
-						<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
-						<tr>
-							<td>{{user[0]}}</td>
-							<td>{{user[1]}}</td>
-							<td>{{user[2]}}</td>
-					        <td>
-					            <input type="checkbox" class="table_checkboxes" id="activation{{user[0]}}"
-					                   data-check-id="activation{{user[0]}}"
-					                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}"
-					                                   {% if not user[3] %} checked {% endif %}>
-					        </td>
-							<td>{{user[4]}}</td>
-							<td>
-			          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
-								{% if user[5] == 1 %}
-									<option selected>admin</option>
-									<option>user</option>
-								{% else %}
-			            <option>admin</option>
-									<option selected>user</option>
-								{% endif %}
-								</select>
-							</td>
-							<td><a href='{{ url_for('edit_user_page', id=user[0]) }}' class="edit_pencil_href"><span class="glyphicon glyphicon-pencil"></span></a></td>
-						</tr>
-					{% endfor %}
-				</tbody>
-			</table>
-			</div>
+{% include 'modal_confirm_role_change.html' %}
 
-			{% include 'modal_confirm_role_change.html' %}
+{% include 'modal_confirm_remove.html' %}
 
-			{% include 'modal_confirm_remove.html' %}
-
-		{% endif %}
-
-	{% endif %}
+{% endif %}
 
 {% endblock %}

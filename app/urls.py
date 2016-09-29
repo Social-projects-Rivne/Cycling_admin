@@ -12,7 +12,6 @@ from app.controllers.user_controller import AdminController
 
 _admin_controller = AdminController()
 
-
 @app.route('/user/<int:user_id>', methods=['DELETE', 'PUT'])
 def delete_user(user_id):
     delete_flag = 0 if request.method == 'DELETE' else 1
@@ -39,7 +38,6 @@ def edit_user_page(id):
     """
     return _admin_controller.get_edit_user_page(id, request.form)
 
-
 @app.route('/users/<int:id>/role_edit', methods=['POST'])
 def edit_user_role(id):
     return _admin_controller.change_user_group(id, request.get_json())
@@ -54,8 +52,8 @@ def get_user_role(id):
 def render_base():
     return render_template("list_all_users.html", message=None)
 
-
 @app.route('/users/search', methods=["POST"])
 def search():
     Post_data = request.form['search-input']
     return _admin_controller.search_user(Post_data)
+    
