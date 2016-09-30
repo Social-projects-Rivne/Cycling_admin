@@ -11,12 +11,13 @@ import os
 import hashlib
 import random
 import string
+import traceback
 
 from json import dumps
 
 from app import app
 from app import db
-from app.utils.emailsend import EmailSender
+from app.utils.emailsend import send_reset_password_email
 from app.models.user import User
 from app.views.searchview import AdminView
 from app.views.view import View
@@ -112,11 +113,11 @@ class AdminController(object):
         # print "Trying to reset password of ", user.full_name
         db.session.commit()
         try:
-            sender = EmailSender()
-            sender.send_reset_password_email(user, password)
+            send_reset_password_email(user, password)
             return {'result': 'success'}, 200
         except Exception, error:
             print "EXCEPTION: ", error
+            traceback.print_exc()
             return {'result': 'error'}, 404
 
     def generate_password(self, size=24):

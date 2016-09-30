@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-import sys, os
+import sys
+import os
 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
