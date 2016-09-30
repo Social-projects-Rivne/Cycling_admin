@@ -3,8 +3,7 @@
 
 import os
 
-from flask import render_template
-import requests
+from flask import render_template, request
 
 
 class EmailSender(object):

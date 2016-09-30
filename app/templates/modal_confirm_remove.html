@@ -61,20 +61,23 @@
             // console.log(checked);
             // console.log($(this).attr('data-record-title'));
             var qstn = 'Oops!';
+            var qstnbtn = 'Oops!';
             $('.title', '#confirm-delete').text($(this).attr('data-record-title'));
             $('.btn-ok', '#confirm-delete').data('recordId', $(this).attr('data-record-id'));
             $('.btn-ok', '#confirm-delete').data('checkId', $(this).attr('id'));
             if(checked) {
                     $(this).prop('checked', false);
                     qstn = 'ban';
+                    qstnbtn = 'Ban';
                     $('.btn-ok', '#confirm-delete').data('method', 'DELETE');
              } else {
                     $(this).prop('checked', true);
                     qstn = 'unban';
+                    qstnbtn = 'Unban';
                     $('.btn-ok', '#confirm-delete').data('method', 'PUT');
             };
             $('.todo', '#confirm-delete').text(qstn);
-            $('.btn-ok', '#confirm-delete').text(qstn);
+            $('.btn-ok', '#confirm-delete').text(qstnbtn);
             $('#confirm-delete').modal();
 
         });
