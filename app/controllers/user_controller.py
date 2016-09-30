@@ -97,21 +97,16 @@ class AdminController(object):
         """
         
         search = '%'+value+'%'
-        result = "Matches doesn't exist"
 
         users_db_obj = db.session.query(*self._columns_to_query).filter\
               (User.full_name.like(search))
-        try:
-            print users_db_obj[0]
-            result = [row for row in users_db_obj]
-        except IndexError:
+        result = [row for row in users_db_obj]
+        if not result:
             users_db_obj = db.session.query(*self._columns_to_query).filter\
               (User.email.like(search))
-            try:
-                print users_db_obj[0]
-                result = [row for row in users_db_obj]
-            except IndexError:
-                pass
+            result = [row for row in users_db_obj]
+            if not result:
+                result = "Matches doesn't exist"
         return self._admin_view.render_search_page(result)
        
     def change_user_group(self, user_id, params):
