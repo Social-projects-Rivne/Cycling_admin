@@ -81,7 +81,7 @@ class AdminController(object):
                 role_disabled = False
             # if params are not None, then it`s put method
             if params:
-                if self.edit_user(self.user, params):
+                if self.edit_user(user, params):
                     message = "Changes done."
                 else:
                     message = "Error occurred"
