@@ -3,3 +3,4 @@ SQLAlchemy==1.0.15
 Flask-SQLAlchemy==2.1
 MySQL-python==1.2.5
 Flask-Login==0.3.2
+requests==2.11.1

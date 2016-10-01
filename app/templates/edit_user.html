@@ -41,10 +41,11 @@
         <option value="1" {% if user.role_id|int() == 1 %} selected{% endif %}>Admin</option>
       </select>
     </div>
-    <div style="text-align:center;margin-top:10px;">
+    <div style="width:400px;text-align:center;margin-top:10px;">
       <div style="display:inline-block;margin: 0 auto;">
         <input class='btn btn-primary' type='submit' value='Save'/>
         <button type='button' class='btn btn-link' onclick='reset_data()'>Cancel</button>
+        <button type='button' class='btn btn-link' data-toggle="modal" data-target="#reset-modal">Reset Password</button>
       </div>
     </div>
   </form>
@@ -54,22 +55,88 @@
   </div>
 {% endif %}
 
+<div class="modal fade" id="reset-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button id="reset-modal-close" type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 id="reset-modal-title" class="modal-title"></h4>
+      </div>
+      <div id="reset-modal-body" class="modal-body">
+      </div>
+      <div class="modal-footer">
+        <button id="reset-modal-cancel" type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+        <button id="reset-modal-ok" type="button" class="btn btn-danger btn-ok">Indeed</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script>
+var user_id = {{ user.id }};
 
-  // this object holds field elements
-  var edit_form = {
-    fullname_field: document.getElementsByName('full_name')[0],
-    email_field: document.getElementsByName('email')[0],
-    is_active_field: document.getElementsByName('is_active')[0],
-    role_field: document.getElementsByName('role_id')[0]
-  };
+// this object holds field elements
+var edit_form = {
+  fullname_field: document.getElementsByName('full_name')[0],
+  email_field: document.getElementsByName('email')[0],
+  is_active_field: document.getElementsByName('is_active')[0],
+  role_field: document.getElementsByName('role_id')[0]
+};
 
-  reset_data();
-  function reset_data(){
-    edit_form.fullname_field.value = "{{ user.full_name }}";
-    edit_form.email_field.value = "{{ user.email }}";
-    edit_form.role_field.selectedIndex = {{ user.role_id }};
-    edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
-  }
+reset_data();
+function reset_data(){
+  edit_form.fullname_field.value = "{{ user.full_name }}";
+  edit_form.email_field.value = "{{ user.email }}";
+  edit_form.role_field.selectedIndex = {{ user.role_id }};
+  edit_form.is_active_field.checked = {% if user.is_active == True %}0{% else %}1{% endif %};
+}
+
+
+// this fucntion execute after AJAX request
+function onAJAXFinish() {
+  $('reset-modal-title').html("Result");
+  $('#reset-modal-ok').html("OK").show().unbind('click').click(function(e) {
+    $('#reset-modal').modal('hide');
+    resetModal();
+  });
+
+
+}
+
+resetModal();
+// this function reset everything in modal to start condition
+function resetModal() {
+  $('#reset-modal-cancel').show();
+  $('#reset-modal-close').show();
+
+  $('#reset-modal-title').html("Confirm");
+  $('#reset-modal-body').html("<p>Reset password?</p>");
+
+  $('#reset-modal-result-body').show();
+
+  // change on click event
+  $('#reset-modal-ok').show().html("Indeed").unbind('click').click(function(e) {
+    $('#reset-modal-body').html("<i class='fa fa-spinner fa-spin'></i>Processing...");
+
+    $('#reset-modal-ok').hide();
+    $('#reset-modal-close').hide();
+    $('#reset-modal-cancel').hide();
+    $("#reset-modal-title").html('Wait a second');
+
+    $.ajax({
+            url: '/users/' + user_id + '/reset_password',
+            type: 'POST',
+            error: function(xhr,status,error){
+                    $('#reset-modal-body').html("An error occurred.");
+                    onAJAXFinish();
+                },
+            success: function(result,status,xhr){
+                    $('#reset-modal-body').html("Success!");
+                    onAJAXFinish();
+                },
+            }
+    );
+  });
+}
 </script>
 {% endblock content %}

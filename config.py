@@ -16,14 +16,20 @@ PASSWORD: user_password
 HOST: localhost
 PORT: 3306
 NAME: CYCLINGDB
-
+[MailSender]
+API_TOKEN: f2b33489-0ba6-4eb5-8372-dd394b960d22
+MAIL_FROM: cycling.official@email.ua
 """
 
-#from configparser import SafeConfigParser
 from ConfigParser import SafeConfigParser
 
 config = SafeConfigParser()
 config.read('./config.ini')
+
+MAIL_SENDER = "MailSender"
+
+API_TOKEN = config.get(MAIL_SENDER, 'API_TOKEN')
+MAIL_FROM = config.get(MAIL_SENDER, 'MAIL_FROM')
 
 ENGINE = config.get('DataBase', 'ENGINE')
 DB_USER = config.get('DataBase', 'DB_USER')
@@ -38,4 +44,3 @@ DATABASE_URI = '%s://%s:%s@%s:%s/%s' % (ENGINE,
                                         HOST,
                                         PORT,
                                         DB_NAME,)
-
