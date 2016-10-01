@@ -40,7 +40,7 @@ class TestEditUser(unittest.TestCase):
             "role_id": 1
         }
 
-        db.session.add(u)
+        db.session.add(self.user)
         db.session.commit()
 
     def test_edit_user(self):
