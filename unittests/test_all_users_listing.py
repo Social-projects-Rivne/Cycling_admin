@@ -58,10 +58,9 @@ class TestUsersListing(unittest.TestCase):
 			data = responce.data
 			self.assertIn('There are no users in the database.', data)
 
-'''
 	def test_unavailable_db(self):
 		"""
-		Check if "Can't access database" message appears if db is 
+		Check if "Can not access database" message appears if db is 
 		unavailable.
 		"""
 		#break db uri to call exception inside controller
@@ -69,9 +68,8 @@ class TestUsersListing(unittest.TestCase):
 		with app.test_client() as test_client:
 			responce = test_client.get('/users/all')
 			data = responce.data
-			self.assertIn("Can't access database.", data)
+			self.assertIn("Can not access database.", data)
 			self.assertNotIn('<table class="table">', data)
-'''
 
 
 if __name__ == '__main__':
