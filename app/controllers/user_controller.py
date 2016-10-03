@@ -50,8 +50,7 @@ class AdminController(object):
         """
         Get list of all users from db and return view rendering function
         """
-        users_db_obj = db.session.query(*self._columns_to_query)
-        users_list = [user for user in users_db_obj]
+        users_list = db.session.query(*self._columns_to_query).all()
         return self.view.render_users_list(users_list)
 
     def get_user_by_id(self, id):
