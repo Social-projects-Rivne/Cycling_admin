@@ -156,6 +156,11 @@ body
 	background-color:inherit;
 }
 
+.material-icons.pencil-icon
+{
+	font-size: 17px;
+}
+
 .edit_pencil_href
 {
 	color: black; 
