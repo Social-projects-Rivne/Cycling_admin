@@ -50,9 +50,14 @@ class AdminController(object):
         """
         Get list of all users from db and return view rendering function
         """
-        users_db_obj = db.session.query(*self._columns_to_query)
-        users_list = [user for user in users_db_obj]
-        return self.view.render_users_list(users_list)
+        try:
+            output = db.session.query(*self._columns_to_query).all()
+            if output == []:
+                output = "There are no users in the database."
+        except:
+            output = "Can not access database."
+
+        return self.view.render_users_list(output)
 
     def get_user_by_id(self, id):
         """
