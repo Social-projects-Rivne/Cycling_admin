@@ -14,7 +14,7 @@ from mock import patch
 from mock import Mock
 from json import loads
 
-from app.controllers.user_controller import AdminController
+from app.controllers.admin_controller import AdminController
 
 
 class TestRoleEdit(TestCase):

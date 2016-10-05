@@ -10,7 +10,7 @@ from app import app
 from app import db
 
 from app.models.user import User
-from app.controllers.user_controller import AdminController
+from app.controllers.admin_controller import AdminController
 from config import DATABASE_URI
 
 
