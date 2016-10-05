@@ -56,4 +56,4 @@ class TestEditUser(unittest.TestCase):
         Clearing db
         """
         db.session.delete(self.user)
-        db.commit()
+        db.session.commit()
