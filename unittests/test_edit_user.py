@@ -46,9 +46,9 @@ class TestEditUser(unittest.TestCase):
     def test_edit_user(self):
         controller = AdminController()
         self.assertTrue(controller.edit_user(self.user, self.params))
-        self.assertEqual(self.user.full_name, self.param['full_name'])
-        self.assertEqual(self.user.email, self.param['email'])
-        self.assertEqual(self.user.role_id, self.param['role_id'])
+        self.assertEqual(self.user.full_name, self.params['full_name'])
+        self.assertEqual(self.user.email, self.params['email'])
+        self.assertEqual(self.user.role_id, self.params['role_id'])
 
     def tearDown(self):
         """

@@ -29,7 +29,7 @@ class TestUser(unittest.TestCase):
         app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
         db.create_all()
 
-        self.user = User(full_name='test user', email='test@gmail.com',
+        self.user = User(full_name='test1 user1', email='test@gmail.com',
                          password='1', is_active=True, avatar='5', role_id='1')
 
     def tearDown(self):
@@ -47,7 +47,7 @@ class TestUser(unittest.TestCase):
         db.session.add(self.user)
         db.session.commit()
 
-        test_user = User.query.filter_by(full_name='test user').first()
+        test_user = User.query.filter_by(full_name='test1 user1').first()
         self.assertEqual(test_user.email, u'test@gmail.com')
 
 
