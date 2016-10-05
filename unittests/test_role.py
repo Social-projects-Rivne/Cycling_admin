@@ -27,8 +27,7 @@ class TestRole(unittest.TestCase):
     def setUp(self):
         """Init database."""
         app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + \
-            os.path.join(basedir, 'test.db')
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
         db.create_all()
 
     def test_regular_user(self):
