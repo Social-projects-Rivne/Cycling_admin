@@ -79,7 +79,7 @@ class AdminController(object):
             error = "User with specified user_id is not found."
         else:
             role_disabled = bool(user.role_id == 1 and self.is_last_admin())
-                
+
             # if params are not None, then it`s put method
             if params:
                 if self.edit_user(user, params):
@@ -157,7 +157,7 @@ class AdminController(object):
             result = db.session.query(*self._columns_to_query).filter(
                 User.email.like(search)).all()
             if not result:
-                result = "Matches doesn't exist"   
+                result = "Matches doesn't exist"
         return self._admin_view.render_search_page(result)
 
     def change_user_group(self, user_id, params):
