@@ -5,5 +5,5 @@
     Application entry point.
 """
 
-from app import app
+from .app import app
 app.run(port=5555, debug=True)
