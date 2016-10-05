@@ -150,17 +150,14 @@ class AdminController(object):
         Recieve from input, search for matches and return
         dict of them if exists.
         """
-
         search = '%'+value+'%'
-        users_db_obj = db.session.query(*self._columns_to_query).filter(
-            User.full_name.like(search))
-        result = [row for row in users_db_obj]
+        result = db.session.query(*self._columns_to_query).filter(
+            User.full_name.like(search)).all()
         if not result:
-            users_db_obj = db.session.query(*self._columns_to_query).filter(
-                User.email.like(search))
-            result = [row for row in users_db_obj]
+            result = db.session.query(*self._columns_to_query).filter(
+                User.email.like(search)).all()
             if not result:
-                result = "Matches doesn't exist"
+                result = "Matches doesn't exist"   
         return self._admin_view.render_search_page(result)
 
     def change_user_group(self, user_id, params):
