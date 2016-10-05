@@ -14,7 +14,7 @@ from mock import patch
 from mock import Mock
 from json import loads
 
-from app.controllers.user_controller import AdminController
+from app.controllers.admin_controller import AdminController
 
 
 class TestRoleEdit(TestCase):
@@ -23,7 +23,7 @@ class TestRoleEdit(TestCase):
 
     def test_get_user_by_id(self):
         """Test user controllier method that returns user role by id."""
-        with patch('app.controllers.user_controller.User') as mock_model:
+        with patch('app.controllers.admin_controller.User') as mock_model:
             mock_model.query.filter_by.return_value.\
                 first.return_value.\
                 role.return_value = u'admin'
@@ -34,7 +34,7 @@ class TestRoleEdit(TestCase):
             self.assertEqual(message['message'], u'admin')
 
     def test_change_user_group(self):
-        with patch('app.controllers.user_controller.User') as mock_model:
+        with patch('app.controllers.admin_controller.User') as mock_model:
             mock_model.query.filter_by.return_value.\
                 first.return_value.\
                 role_id = 0
