@@ -59,7 +59,7 @@
 						{% endif %}
 						</select>
 					</td>
-					<td><a href='{{ url_for('edit_user_page', id=user[0]) }}' class="edit_pencil_href"><span class="glyphicon glyphicon-pencil"></span></a></td>
+					<td><a href='{{ url_for('edit_user_page', user_id=user[0]) }}' class="edit_pencil_href"><span class="glyphicon glyphicon-pencil"></span></a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

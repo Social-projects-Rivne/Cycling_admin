@@ -5,9 +5,6 @@
     User controller class for CRUD with User model.
 """
 
-import cgi
-import sys
-import os
 import hashlib
 import random
 import string
@@ -15,7 +12,6 @@ import traceback
 
 from json import dumps
 
-from app import app
 from app import db
 from app.utils.emailsend import send_reset_password_email
 from app.models.user import User
@@ -35,6 +31,7 @@ class AdminController(object):
         self.view = View()
 
     def delete_by_id(self, user_id, delete=0):
+        """ Bans or unbans a user """
         u_to_delete = User.query.filter_by(id=str(user_id)).first()
         # print u_to_delete.id
         try:
@@ -59,16 +56,16 @@ class AdminController(object):
 
         return self.view.render_users_list(output)
 
-    def get_user_by_id(self, id):
+    def get_user_by_id(self, user_id):
         """
-        Return user object by specified id, None if not found
+        Return user object by specified user_id, None if not found
         """
-        return db.session.query(User).get(id)
+        return db.session.query(User).get(user_id)
 
     def is_last_admin(self):
         return db.session.query(User).filter_by(role_id=1).count() == 1
 
-    def get_edit_user_page(self, id, params):
+    def get_edit_user_page(self, user_id, params):
         """
         This method analyze params and return user edit page
         """
@@ -77,14 +74,12 @@ class AdminController(object):
         # show if message variable is good
         good_message = True
 
-        user = self.get_user_by_id(id)
+        user = self.get_user_by_id(user_id)
         if not user:
-            error = "User with specified id is not found."
+            error = "User with specified user_id is not found."
         else:
-            if user.role_id == 1 and self.is_last_admin():
-                role_disabled = True
-            else:
-                role_disabled = False
+            role_disabled = bool(user.role_id == 1 and self.is_last_admin())
+                
             # if params are not None, then it`s put method
             if params:
                 if self.edit_user(user, params):
@@ -105,12 +100,12 @@ class AdminController(object):
         """
         return hashlib.sha512(password.encode()).hexdigest()
 
-    def reset_password(self, id):
+    def reset_password(self, user_id):
         """
         This method reset password of user with specified email
         and send notification email on it
         """
-        user = db.session.query(User).filter_by(id=id).first()
+        user = db.session.query(User).filter_by(id=user_id).first()
         password = self.generate_password()
         hashed_password = self.password_to_hash(password)
         # print password, " --> ", hashed_password
@@ -131,7 +126,7 @@ class AdminController(object):
         """
         return ''.join(
             random.SystemRandom().choice(
-                string.ascii_uppercase + string.digits) for _ in range(24))
+                string.ascii_uppercase + string.digits) for _ in range(size))
 
     def edit_user(self, user, params):
         """
@@ -169,6 +164,7 @@ class AdminController(object):
         return self._admin_view.render_search_page(result)
 
     def change_user_group(self, user_id, params):
+        """Change user's role: user or admin"""
         try:
             u_id = str(user_id)
             u_role = int(params['user_role'])

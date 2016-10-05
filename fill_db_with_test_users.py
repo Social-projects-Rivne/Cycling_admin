@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from app import app
 from app import db
 from app.models.user import User
 from fixtures.fake_users import USERS
