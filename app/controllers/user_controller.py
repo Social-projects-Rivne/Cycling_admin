@@ -87,7 +87,6 @@ class AdminController(object):
                 else:
                     message = "Error occurred"
                     good_message = False
-
         return self.view.render_edit_user(user=user,
                                           message=message,
                                           good_message=good_message,
@@ -137,6 +136,7 @@ class AdminController(object):
 
         user.full_name = params['full_name']
         user.email = params['email']
+        user.avatar = params.get('avatar_url', None)
         if 'is_active' in params:
             user.is_active = 0
         else:

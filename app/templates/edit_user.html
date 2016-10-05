@@ -8,15 +8,33 @@
 
 {% if user is not none %}
   {% if message is not none %}
-  <div class="alert alert-success">
-    {{ message }}
-  </div>
+    <div class="alert alert-success">
+      {{ message }}
+    </div>
   {% endif %}
   {% if error is not none %}
-  <div class="alert alert-warning">
-    {{ error }}
-  </div>
+    <div class="alert alert-warning">
+      {{ error }}
+    </div>
   {% endif %}
+  <div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-sm-7 col-md-7">
+            <div class="well well-sm">
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <img 
+                          {% if user.avatar %}
+                              src="{{ user.avatar }}"
+                          {% else %}
+                              src="http://placehold.it/380x500" 
+                          {% endif %}
+                          alt="" class="img-rounded img-responsive" />
+                    </div>
+                    <div class="col-sm-6 col-md-8">
+
+<!-- Edit form starts here -->
+
   <form method='POST' id='edit-form'>
     <div>
       <label class="control-label">Full Name:</label>
@@ -26,6 +44,14 @@
       <label class="control-label">Email:</label>
       <input class="form-control" type="text" name="email" value={{user.email}} />
     </div>
+
+<!-- avatar URL starts here -->
+    <div>
+      <label class="control-label">Avatar url:</label>
+      <input class="form-control" type="text" name="avatar_url" value='{{user.avatar}}' />
+    </div>
+<!-- avatar url ends here -->
+
     <div class="checkbox">
 
       <label class="control-label" style="font-weight:bold;">
@@ -49,6 +75,14 @@
       </div>
     </div>
   </form>
+
+<!-- edit from ends here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% else %}
   <div class="alert alert-warning">
     User with specified id not found.
