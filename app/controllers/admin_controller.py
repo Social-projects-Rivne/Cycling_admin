@@ -15,20 +15,18 @@ from json import dumps
 from app import db
 from app.utils.emailsend import send_reset_password_email
 from app.models.user import User
-from app.views.searchview import AdminView
-from app.views.view import View
+from app.views.adminview import AdminView
 
 
 class AdminController(object):
     """docstring for AdminController"""
 
-    _admin_view = AdminView()
     _columns_to_query = (User.id, User.full_name, User.email,
                          User.is_active, User.avatar, User.role_id)
 
     def __init__(self):
         """Create instances of models and views"""
-        self.view = View()
+        self.admin_view = AdminView()
 
     def delete_by_id(self, user_id, delete=0):
         """ Bans or unbans a user """
@@ -54,7 +52,7 @@ class AdminController(object):
         except:
             output = "Can not access database."
 
-        return self.view.render_users_list(output)
+        return self.admin_view.render_users_list(output)
 
     def get_user_by_id(self, user_id):
         """
@@ -87,11 +85,11 @@ class AdminController(object):
                 else:
                     message = "Error occurred"
                     good_message = False
-        return self.view.render_edit_user(user=user,
-                                          message=message,
-                                          good_message=good_message,
-                                          error=error,
-                                          role_disabled=role_disabled)
+        return self.admin_view.render_edit_user(user=user,
+                                                message=message,
+                                                good_message=good_message,
+                                                error=error,
+                                                role_disabled=role_disabled)
 
     def password_to_hash(self, password):
         """
@@ -158,7 +156,7 @@ class AdminController(object):
                 User.email.like(search)).all()
             if not result:
                 result = "Matches doesn't exist"
-        return self._admin_view.render_search_page(result)
+        return self.admin_view.render_users_list(result)
 
     def change_user_group(self, user_id, params):
         """Change user's role: user or admin"""

@@ -8,7 +8,7 @@
 from flask import render_template
 
 
-class View(object):
+class AdminView(object):
 
     """View class for rendering templates."""
 

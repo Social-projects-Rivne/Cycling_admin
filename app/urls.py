@@ -8,7 +8,7 @@ import json
 from flask import request, render_template
 
 from app import app
-from app.controllers.user_controller import AdminController
+from app.controllers.admin_controller import AdminController
 
 _admin_controller = AdminController()
 
