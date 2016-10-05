@@ -49,17 +49,17 @@
 			        </td>
 					<td>{{user[4]}}</td>
 					<td>
-	          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
-						{% if user[5] == 1 %}
-							<option selected>admin</option>
-							<option>user</option>
-						{% else %}
-	            <option>admin</option>
-							<option selected>user</option>
-						{% endif %}
+			          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
+								{% if user[5] == 1 %}
+									<option selected>admin</option>
+									<option>user</option>
+								{% else %}
+						            <option>admin</option>
+									<option selected>user</option>
+								{% endif %}
 						</select>
 					</td>
-					<td><a href='{{ url_for('edit_user_page', id=user[0]) }}' class="edit_pencil_href"><span class="material-icons pencil-icon">create</span></a></td>
+					<td><a href='{{ url_for('edit_user_page', user_id=user[0]) }}' class="edit_pencil_href"><span class="material-icons pencil-icon">create</span></a></td>
 				</tr>
 			{% endfor %}
 		</tbody>

@@ -15,7 +15,7 @@ DB_USER: user_name
 PASSWORD: user_password
 HOST: localhost
 PORT: 3306
-NAME: CYCLINGDB
+NAME: CYCLINGADMINDB
 [MailSender]
 API_TOKEN: f2b33489-0ba6-4eb5-8372-dd394b960d22
 MAIL_FROM: cycling.official@email.ua
