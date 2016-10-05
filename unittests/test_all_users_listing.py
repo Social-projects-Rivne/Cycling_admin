@@ -26,7 +26,7 @@ class TestUsersListing(unittest.TestCase):
     def tearDown(self):
         pass
 
-    @patch('app.controllers.user_controller.db')
+    @patch('app.controllers.admin_controller.db')
     def test_controller_with_fake_usr(self, db):
         """
         Fake db output with mock and check if it is processed by controller
@@ -41,7 +41,7 @@ class TestUsersListing(unittest.TestCase):
             self.assertIn('Hillary Trump', data)
             self.assertIn('admin', data)
 
-    @patch('app.controllers.user_controller.db')
+    @patch('app.controllers.admin_controller.db')
     def test_controller_with_empty_db(self, db):
         """
         Imitate situation when there is no any user available in the db and
