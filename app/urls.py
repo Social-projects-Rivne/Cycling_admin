@@ -12,6 +12,7 @@ from app.controllers.user_controller import AdminController
 
 _admin_controller = AdminController()
 
+
 @app.route('/user/<int:user_id>', methods=['DELETE', 'PUT'])
 def delete_user(user_id):
     """ This function takes a request and bans/unbans a user """
@@ -44,6 +45,7 @@ def edit_user_page(user_id):
     """
     return _admin_controller.get_edit_user_page(user_id, request.form)
 
+
 @app.route('/users/<int:user_id>/role_edit', methods=['POST'])
 def edit_user_role(user_id):
     """ The routing function for editing user's role (user/admin) """
@@ -61,9 +63,9 @@ def render_base():
     """ Root routing function """
     return render_template("list_all_users.html", message=None)
 
+
 @app.route('/users/search', methods=["POST"])
 def search():
     """ Accepts a string and passes it to a search controller """
     post_data = request.form['search-input']
     return _admin_controller.search_user(post_data)
-    
