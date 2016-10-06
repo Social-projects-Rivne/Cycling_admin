@@ -6,17 +6,14 @@
 """
 
 import unittest
+from mock import patch
+from mock import Mock
 
 import sys, os
 sys.path.append(os.path.abspath('../'))
 basedir = os.path.abspath(os.path.dirname(__file__))
 
-import random
-trail = random.randint(100,1000)
-
 from app import app
-from app import db
-from app.models.user import User
 from app.controllers.admin_controller import AdminController
 
 class TestDeleteUser(unittest.TestCase):
@@ -24,26 +21,27 @@ class TestDeleteUser(unittest.TestCase):
     """Test case for deleting user methods."""
 
     def setUp(self):
-        """Init database."""
-        app.config['TESTING'] = True
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite://'
-        db.create_all()
-
+        pass
+       
     def test_delete_user_by_id(self):
-        u = User(full_name='test user', email='test%s@gmail.com' % trail,
-                         password='1', is_active=True, role_id=0)
-        db.session.add(u)
-        db.session.commit()
-        is_success = AdminController().delete_by_id(u.id)
-        assert is_success
-        assert not u.is_active
+        """Test user controllier method that deactivates or activates a user."""
+        with patch('app.controllers.admin_controller.User') as mock_model:
+
+            mock_model.query.filter_by.return_value.\
+                first.return_value.\
+                is_active = 1
+            # print mock_model.query.filter_by().first().is_active
+            is_success = AdminController().delete_by_id(user_id=1)
+            assert is_success
+            # print mock_model.query.filter_by().first().is_active
+            assert not mock_model.query.filter_by().first().is_active
+            is_success = AdminController().delete_by_id(user_id=1, delete=1)
+            assert is_success
+            # print mock_model.query.filter_by().first().is_active
+            assert mock_model.query.filter_by().first().is_active
 
     def tearDown(self):
-
-        """Free resourses."""
-        
-        db.session.remove()
-        db.drop_all()
+        pass
 
 if __name__ == '__main__':
     unittest.main()

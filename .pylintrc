@@ -15,4 +15,4 @@
 # R0915 Too many statements
 # R0913 Too many arguments
 # R0904 Too many public methods
-disable=no-member, maybe-no-member, relative-import
+disable=no-member,maybe-no-member,relative-import,import-error,no-self-use
