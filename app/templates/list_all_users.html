@@ -3,12 +3,12 @@
 
 {% block form %}
 <form class="navbar-form" method="POST" action="/users/search" id="search-form" role="search">
-	<div class="input-group">
-		<div class="input-group-btn">
-			<button class="btn search-button" type="submit"><i class="glass material-icons">search</i></button>
-		</div>
-		<input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
-	</div>
+    <div class="input-group">
+        <div class="input-group-btn">
+            <button class="btn search-button" type="submit"><i class="glass material-icons">search</i></button>
+        </div>
+        <input type="search" class="form-control search-input-class" placeholder="Search" name="search-input">
+    </div>
 </form>
 {% endblock %}
 
@@ -20,8 +20,8 @@
 <h3 class="NoMatches">{{ users_list }}</h3>
 {% elif users_list %}
 <div>
-	<!-- <table class="table table-hover"> -->
-	<table class="table">
+    <!-- <table class="table table-hover"> -->
+    <table class="table">
     <thead>
       <tr>
         <th>#</th>
@@ -34,36 +34,36 @@
       </tr>
     </thead>
 
-		<tbody>
-			{% for user in users_list %}
-				<!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
-				<tr>
-					<td>{{user[0]}}</td>
-					<td>{{user[1]}}</td>
-					<td>{{user[2]}}</td>
-			        <td>
-			            <input type="checkbox" class="table_checkboxes" id="activation{{user[0]}}"
-			                   data-check-id="activation{{user[0]}}"
-			                   data-record-id="{{user[0]}}" data-record-title="{{user[1]}}"
-			                                   {% if not user[3] %} checked {% endif %}>
-			        </td>
-					<td>{{user[4]}}</td>
-					<td>
-			          <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
-								{% if user[5] == 1 %}
-									<option selected>admin</option>
-									<option>user</option>
-								{% else %}
-						            <option>admin</option>
-									<option selected>user</option>
-								{% endif %}
-						</select>
-					</td>
-					<td><a href='{{ url_for('edit_user_page', user_id=user[0]) }}' class="edit_pencil_href"><span class="material-icons pencil-icon">create</span></a></td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
+    <tbody>
+        {% for user in users_list %}
+            <!-- user tuple: id - [0], full_name - [1], email - [2], is_active - [3], avatar - [4], role_id - [5] -->
+            <tr>
+                <td>{{user[0]}}</td>
+                <td>{{user[1]}}</td>
+                <td>{{user[2]}}</td>
+                <td>
+                    <input type="checkbox" class="table_checkboxes" id="activation{{user[0]}}"
+                           data-check-id="activation{{user[0]}}"
+                           data-record-id="{{user[0]}}" data-record-title="{{user[1]}}"
+                           {% if not user[3] %} checked {% endif %}>
+                </td>
+                <td>{{user[4]}}</td>
+                <td>
+                    <select class="table_select" data-id="{{user[0]}}" href="#roleEditModal">
+                            {% if user[5] == 1 %}
+                                <option selected>admin</option>
+                                <option>user</option>
+                            {% else %}
+                                <option>admin</option>
+                                <option selected>user</option>
+                            {% endif %}
+                    </select>
+                </td>
+                <td><a href='{{ url_for('edit_user_page', user_id=user[0]) }}' class="edit_pencil_href"><span class="material-icons pencil-icon">create</span></a></td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
 </div>
 
 
