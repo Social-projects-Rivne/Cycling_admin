@@ -5,11 +5,12 @@
 Class User implements model of the user table in database.
 
 """
+from flask_login import UserMixin
 
 from app import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     """Class represents user model in database.
 

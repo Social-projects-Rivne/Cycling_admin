@@ -12,7 +12,13 @@
 </form>
 {% endblock %}
 
-{% block title %}Cycling users management{% endblock %}
+{% block title %}
+    {% if whoami %}
+        <span>Welcome to the Cycling users management! You're logged in as {{whoami}}</span>
+    {% else %}
+        <span>Cycling users management</span>
+    {% endif %}
+{% endblock %}
 
 {% block content %}
 

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login to Cycling Admin</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.css')}}" />
+   
+    <style>
+
+    </style>
+</head>
+<body>
+    {% block login_form %}
+        <div>
+        {% from "_formhelpers.html" import render_field %}
+            <form action="/login" method="post" name="test">
+                <dl>
+                {{ form.csrf_token }}
+                {{ render_field(form.email) }}
+                {{ render_field(form.password) }}
+                </dl>
+                <p><input type=submit value=Login>
+                </form>
+         </div>
+    {% endblock %}
+</body>
