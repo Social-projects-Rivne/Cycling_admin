@@ -5,9 +5,10 @@ from flask_wtf import Form
 from wtforms import TextField, PasswordField, validators
 
 from app.models.user import User
+from app.utils.password_master import PasswordMaster
 
 
-class LoginForm(Form):
+class LoginForm(Form, PasswordMaster):
     """ This class provides logic for custom form on login.html and for /login
     url view. Method validate(self) checks in the database email and password,
     user role (admin or non-admin, because access for this admin-website is
@@ -19,6 +20,10 @@ class LoginForm(Form):
     and attaches user data from the database query to the current instance of
     the form, which later is used in urls.py by flask-login and it's
     LoginManager.
+
+    LoginForm inherits from PasswordMaster method password_check which creates
+    salted SHA512 hash for entered in input password and compares it with
+    user's hashed password from the database.
 
     """
     email = TextField('Email: ', [validators.Required()])
@@ -49,8 +54,8 @@ class LoginForm(Form):
             self.email.errors.append('Unknown email')
             return False
 
-        if not user.password == self.password.data:
-            self.password.errors.append('Invalid password')
+        if self.check_password(self.password.data, user.password) == False:
+            self.password.errors.append('Invalid password!')
             return False
 
         if not int(user.role_id) == 1:
