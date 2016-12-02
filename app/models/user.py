@@ -40,7 +40,7 @@ class User(db.Model, UserMixin):
     roles = ['user', 'admin']
 
     def role(self):
-        return self.roles[self.role_id]
+        return self.roles[int(self.role_id)]
 
     def __repr__(self):
         return '<User %s>' % self.full_name
