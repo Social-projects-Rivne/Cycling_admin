@@ -5,11 +5,12 @@
 Class User implements model of the user table in database.
 
 """
+from flask_login import UserMixin
 
 from app import db
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
 
     """Class represents user model in database.
 
@@ -39,7 +40,7 @@ class User(db.Model):
     roles = ['user', 'admin']
 
     def role(self):
-        return self.roles[self.role_id]
+        return self.roles[int(self.role_id)]
 
     def __repr__(self):
         return '<User %s>' % self.full_name
