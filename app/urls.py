@@ -7,7 +7,8 @@
 import json
 
 from flask import request, render_template, redirect, url_for, session
-from flask_login import LoginManager, login_user, login_required, logout_user
+from flask_login import (LoginManager, login_user, login_required,
+                         logout_user, current_user)
 
 from app import app
 from app.controllers.admin_controller import AdminController
@@ -19,6 +20,7 @@ login_manager = LoginManager()
 # provide default view method for attempts of non logged in
 # users to visit protected by login pages:
 login_manager.login_view = 'login'
+
 login_manager.init_app(app)
 
 _admin_controller = AdminController()
@@ -48,7 +50,7 @@ def reset_user_password(user_id):
 @app.route('/users/all')
 @login_required
 def list_all_users():
-    """Return web-page with the list of all users in the database"""
+    """Return web-page with the list of all users in the database."""
     return _admin_controller.get_all_users()
 
 
@@ -80,7 +82,6 @@ def get_user_role(user_id):
 def render_base():
     """ Root routing function """
     usr = session['email']
-    print usr
     return render_template("list_all_users.html", whoami=usr, message=None)
 
 
@@ -102,16 +103,18 @@ def load_user(user_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    """ Return web-page with custom Login form with it's user
-    validators. If user's email, password and role are valid
-    function logs him in. After successful login redirects to
-    the main page. """
+    """ Return web-page with custom Login form with validators.
+
+    If user's email, password and role are valid then function
+    logs him in. After successful login redirects to the main
+    page. """
+    if current_user.is_authenticated:
+        return redirect(url_for('render_base'))
     form = LoginForm()
     if request.method == 'POST':
         if form.validate():
             login_user(form.user)
             session['email'] = form.user.email
-            print session['email']
             return redirect(url_for('render_base'))
     return render_template('login.html', form=form)
 
@@ -119,7 +122,7 @@ def login():
 @app.route("/logout")
 @login_required
 def logout():
-    """ This method logs user out clearing the session and redirecting
-    to the login page. """
+    """ This method logs user out and redirects to the login
+    page. """
     logout_user()
     return redirect(url_for('login'))

@@ -10,7 +10,9 @@ from app.utils.password_master import PasswordMaster
 
 class LoginForm(Form, PasswordMaster):
     """ This class provides logic for custom form on login.html and for /login
-    url view. Method validate(self) checks in the database email and password,
+    url view.
+
+    Method validate(self) checks in the database email and password,
     user role (admin or non-admin, because access for this admin-website is
     provided only for admin users) and user status (is it active or deleted).
     When some errors are found they're attached to the form's individual
@@ -36,7 +38,9 @@ class LoginForm(Form, PasswordMaster):
 
     def validate(self):
         """ This method validates user input and returns False if some errors
-        are found, otherwise returns True. Next validation is done:
+        are found, otherwise returns True.
+
+        Next validation is done:
             - are inputs not empty?
             - does user with given email exist?
             - is entered password correct?
@@ -55,7 +59,7 @@ class LoginForm(Form, PasswordMaster):
             return False
 
         if self.check_password(self.password.data, user.password) == False:
-            self.password.errors.append('Invalid password!')
+            self.password.errors.append('Invalid password')
             return False
 
         if not int(user.role_id) == 1:
