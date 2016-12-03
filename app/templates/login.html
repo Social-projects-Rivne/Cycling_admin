@@ -3,25 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <title>Login to Cycling Admin</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap.css')}}" />
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-theme.css')}}" />
-   
+    <link rel="stylesheet" href="{{ url_for('static', filename='login_style.css')}}" /> 
     <style>
 
     </style>
 </head>
 <body>
     {% block login_form %}
-        <div>
-        {% from "_formhelpers.html" import render_field %}
-            <form action="/login" method="post" name="test">
+        <div class="login-page">
+            {% from "_formhelpers.html" import render_field %}
+            <div class="form">
+            <form class="login-form" action="/login" method="post" name="test">
                 <dl>
                 {{ form.csrf_token }}
                 {{ render_field(form.email) }}
                 {{ render_field(form.password) }}
                 </dl>
-                <p><input type=submit value=Login>
+                <p><input class="login-button" type=submit value=Login>
                 </form>
+             </div>
          </div>
     {% endblock %}
 </body>
