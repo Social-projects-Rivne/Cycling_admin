@@ -33,7 +33,7 @@ body
 	font-size: 18px !important;
 }
 
-.form-control
+.search-field
 {
 	background-color: #3E85CE !important;
 	border: none !important;
@@ -140,19 +140,19 @@ body
 	margin-right: 5%;
 }
 
-.table 
+.table
 {
 	font-family: sans;
 }
 
-.table_checkboxes 
+.table_checkboxes
 {
 	transform: scale(0.75);
 }
 
 .table_select
 {
-	border:none; 
+	border:none;
 	background-color:inherit;
 }
 
@@ -163,6 +163,58 @@ body
 
 .edit_pencil_href
 {
-	color: black; 
+	color: black;
 	text-decoration: none;
+}
+
+.edit-input
+{
+    border-top: none;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid #d3d3d3;
+    border-radius: 0;
+    width: 300px;
+    line-height: 1em;
+    outline: 0px !important;
+    -webkit-appearance:none;
+    background: #fff;
+    color: #444 !important;
+}
+
+.edit-input:hover .edit-input:active .edit-input:focus
+{
+    color: #444 !important;
+}
+
+.edit-button
+{
+    margin-left: 20px;
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+    width: 80px;
+    height: 35px;
+    text-align: center;
+    border: none;
+    color: #fff;
+    background-color: #1E90FF;
+    cursor: pointer;
+}
+
+.edit-button:hover
+{
+
+    background-color: #106CC8;
+}
+
+.edit-button:active
+{
+
+    background-color: #0862BD;
+}
+
+.edit-button-snd:hover
+{
+    text-decoration: none;
 }

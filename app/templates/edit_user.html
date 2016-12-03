@@ -23,11 +23,11 @@
             <div class="well well-sm">
                 <div class="row">
                     <div class="col-sm-6 col-md-4">
-                        <img 
+                        <img
                           {% if user.avatar %}
                               src="{{ user.avatar }}"
                           {% else %}
-                              src="http://placehold.it/380x500" 
+                              src="http://placehold.it/380x500"
                           {% endif %}
                           alt="" class="img-rounded img-responsive" />
                     </div>
@@ -38,17 +38,17 @@
   <form method='POST' id='edit-form'>
     <div>
       <label class="control-label">Full Name:</label>
-      <input class="form-control" type="text" name="full_name" value={{user.full_name}} />
+      <input class="form-control edit-input" type="text" name="full_name" value={{user.full_name}} />
     </div>
     <div>
       <label class="control-label">Email:</label>
-      <input class="form-control" type="text" name="email" value={{user.email}} />
+      <input class="form-control edit-input" type="text" name="email" value={{user.email}} />
     </div>
 
 <!-- avatar URL starts here -->
     <div>
       <label class="control-label">Avatar url:</label>
-      <input class="form-control" type="text" name="avatar_url" value='{{user.avatar}}' />
+      <input class="form-control edit-input" type="text" name="avatar_url" value='{{user.avatar}}' />
     </div>
 <!-- avatar url ends here -->
 
@@ -62,16 +62,16 @@
     </div>
     <div>
       <label class="control-label">Role:</label>
-      <select style="form-control" class="form-control" name="role_id" form='edit-form' {% if role_disabled %}disabled{% endif %}>
+      <select style="form-control" class="form-control edit-input" name="role_id" form='edit-form' {% if role_disabled %}disabled{% endif %}>
         <option value="0" {% if user.role_id|int() == 0 %} selected{% endif %}>User</option>
         <option value="1" {% if user.role_id|int() == 1 %} selected{% endif %}>Admin</option>
       </select>
     </div>
     <div style="width:400px;text-align:center;margin-top:10px;">
       <div style="display:inline-block;margin: 0 auto;">
-        <input class='btn btn-primary' type='submit' value='Save'/>
-        <button type='button' class='btn btn-link' onclick='reset_data()'>Cancel</button>
-        <button type='button' class='btn btn-link' data-toggle="modal" data-target="#reset-modal">Reset Password</button>
+        <input class='edit-button' type='submit' value='Save'/>
+        <button style="font-weight:bold" type='button' class='btn btn-link edit-button-snd' onclick='reset_data()'>Cancel</button>
+        <button style="font-weight:bold"  type='button' class='btn btn-link edit-button-snd' data-toggle="modal" data-target="#reset-modal">Reset Password</button>
       </div>
     </div>
   </form>
